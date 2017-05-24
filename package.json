@@ -1,0 +1,23 @@
+{
+  "name": "spread-image-viewer",
+  "version": "0.1.0",
+  "main": "js/main.js",
+  "description": "Spread image viewer",
+  "dependencies": {
+    "electron": "^1.6.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nabezokodaikon/spread-image-viewer.git"
+  },
+  "author": "nabezokodaikon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nabezokodaikon/spread-image-viewer/issues"
+  },
+  "homepage": "https://github.com/nabezokodaikon/spread-image-viewer#readme"
+}
