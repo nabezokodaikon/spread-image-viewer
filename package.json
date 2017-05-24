@@ -1,7 +1,7 @@
 {
   "name": "spread-image-viewer",
   "version": "0.1.0",
-  "main": "js/main.js",
+  "main": "dest/main.js",
   "description": "Spread image viewer",
   "dependencies": {
     "prop-types": "^15.5.10",
@@ -21,7 +21,11 @@
     "rimraf": "^2.6.1"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "clean": "rimraf dest",
+    "build": "./node_modules/.bin/babel src --out-dir dest --ignore *.spec.js",
+    "debug": "npm run build && ./node_modules/.bin/electron --js-flags='--harmony-tailcalls' .",
+    "start": "./node_modules/.bin/electron --js-flags='--harmony-tailcalls' ."
   },
   "repository": {
     "type": "git",
