@@ -15,3 +15,34 @@ body {
   height: 100%;
   font-size: 62.5%;
 }
+
+
+/* File names box */
+
+.fileNamesBox {
+  display: flex;
+  justify-content: center;
+  flex-direction : column;
+
+  position: absolute;
+  top: 3rem;
+  right: 1rem;
+
+  z-index: 1;
+
+  background-color: #ffffff;
+
+  border-style: solid;
+  border-width: 0.1rem;
+  border-radius: 0.2rem;
+  border-color: #cccccc;
+
+  box-shadow: 0.2rem 0.2rem 0.2rem 0rem rgba(0, 0, 0, 0.5);
+
+  /* visibility: hidden; */
+}
+
+.fileName {
+  margin: 0rem 0.4rem 0rem 0.4rem;
+  font-size: 1.4rem;
+}
