@@ -3,11 +3,8 @@
   "version": "0.1.0",
   "main": "js/main.js",
   "description": "Spread image viewer",
-  "dependencies": {
-    "electron": "^1.6.6"
-  },
-  "devDependencies": {
-  },
+  "dependencies": {},
+  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
