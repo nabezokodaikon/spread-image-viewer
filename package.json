@@ -7,7 +7,6 @@
     "electron": "^1.6.6"
   },
   "devDependencies": {
-    "yarn": "^0.24.5"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
