@@ -3,3 +3,5 @@ tags
 dest
 *.log
 .yarnclean
+.DS_Store
+sample-resource
