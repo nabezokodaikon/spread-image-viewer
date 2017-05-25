@@ -7,9 +7,13 @@ import installExtension, {
 import { app, BrowserWindow } from "electron";
 import path from "path";
 import url from "url";
+import { getLogger } from "./AppConfig"
 
+const log = getLogger();
 let win = null;
 let isQuit = false;
+
+log.debug("Application start.");
 
 function isMac() {
   return process.platform === "darwin"; 
@@ -25,13 +29,14 @@ function createWindow() {
   win.webContents.openDevTools();
 
   win.loadURL(url.format({
-    pathname: path.join(__dirname, "../public/index.html"),
+    pathname: path.join(path.resolve("."), "public/index.html"),
     protocol: "file",
     slashes: true
   }));
 
   win.on("close", (e) => {
     if (isQuit) {
+      log.debug("Application quit.");
       return;
     }
 
