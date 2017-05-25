@@ -1,42 +1,65 @@
-/* * { */
-  /* margin: 0rem; */
-  /* padding: 0rem; */
-  /* border-width: 0rem; */
-  /* color: #565656; */
-/* } */
-
-*:focus {
-  outline: none;
-}
-
 html,
 body {
   width: 100%;
   height: 100%;
+  margin: 0rem;
   font-size: 62.5%;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  background-color: #aaaaaa;
+}
+
+header {
+  flex: 0;
+
+  background-color: #00ff00;
+}
+
+
+/* Tool box */
+.toolBox {
+  flex-grow: 1;
+  display: flex;
+  border-style: solid;
+  border-width: 0rem 0rem 0.1rem 0rem;
+  border-color: transparent transparent #aaaaaa transparent;
+  background-color: #f7f7f7;
+}
+
+.toolButton {
+  width: 5rem;
+  height: 2.1rem;
+  margin: 0.5rem;
+}
+
+.toolRadio {
+  height: 2.1rem;
+  margin: 0.5rem;
+  vertical-align: middle;
+}
+
+.fileOpenButton {
+  margin-left: auto;
 }
 
 
 /* File names box */
-
 .fileNamesBox {
-  display: flex;
-  justify-content: center;
-  flex-direction : column;
-
+  z-index: 1;
   position: absolute;
   top: 3rem;
   right: 1rem;
-
-  z-index: 1;
-
-  background-color: #ffffff;
-
   border-style: solid;
   border-width: 0.1rem;
   border-radius: 0.2rem;
   border-color: #cccccc;
-
+  background-color: #ffffff;
   box-shadow: 0.2rem 0.2rem 0.2rem 0rem rgba(0, 0, 0, 0.5);
 
   /* visibility: hidden; */
@@ -44,5 +67,19 @@ body {
 
 .fileName {
   margin: 0rem 0.4rem 0rem 0.4rem;
-  font-size: 1.4rem;
+}
+
+
+/* Contents */
+.contents {
+  flex: 1;
+
+  background-color: #ff0000;
+}
+
+.imageView {
+  width: 100%;
+  height: 100%;
+
+  background-color: #0000ff;
 }
