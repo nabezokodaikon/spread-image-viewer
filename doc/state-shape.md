@@ -1,7 +1,7 @@
 # State shape
 ```
 {
-  current: {
+  pages: {
     directory: "images",
     files: [
       "image01.jpg",
@@ -21,7 +21,7 @@
       height: 800
     }
   },
-  turn: "left",
-  visibleFileNames: true,
+  direction: "left",
+  visibilityFileNames: true,
 }
 ```
