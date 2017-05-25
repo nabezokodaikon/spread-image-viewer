@@ -4,6 +4,7 @@
   "main": "dest/main.js",
   "description": "Spread image viewer",
   "dependencies": {
+    "canvas": "^1.6.5",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
