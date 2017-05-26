@@ -1,9 +1,8 @@
 "use strict";
 
 export const OPEN_FILE = "OPEN_FILE"; 
-export const REDRAW = "REDRAW";
-export const SINGLE_NEXT = "SINGLE_NEXT";
-export const SINGLE_PREVIEW = "SINGLE_PREVIEW";
-export const DOUBLE_NEXT = "DOUBLE_NEXT";
-export const DOUBLE_PREVIEW = "DOUBLE_PREVIEW";
-export const REDRAW = "REDRAW";
+export const REDRAW_PAGE = "REDRAW_PAGE";
+export const SINGLE_NEXT_PAGE = "SINGLE_NEXT_PAGE";
+export const SINGLE_PREVIEW_PAGE = "SINGLE_PREVIEW_PAGE";
+export const DOUBLE_NEXT_PAGE = "DOUBLE_NEXT_PAGE";
+export const DOUBLE_PREVIEW_PAGE = "DOUBLE_PREVIEW_PAGE";
