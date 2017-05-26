@@ -10,8 +10,18 @@
       "image04.jpg",
       "image05.jpg"
     ],
-    main: "image01.jpg",
-    sub: "image02.jpg"
+    main: {
+      file: "image01.jpg",
+      data: object,
+      width: 600,
+      height: 800
+    },
+    sub: {
+      file: "image01.jpg",
+      data: object,
+      width: 600,
+      height: 800
+    },
   },
   direction: "left",
   visibilityFileNames: true,
