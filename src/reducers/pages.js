@@ -12,21 +12,17 @@ import {
   DOUBLE_PREVIEW_PAGE
 } from "../constants/ActionTypes";
 
+const initialStateMainOrSub = {
+  file: "",
+  data: null,
+  width: 0,
+  height: 0
+};
 const initialState = {
   directory: "",
   files: [],
-  main: {
-    file: "",
-    data: null,
-    width: 0,
-    height: 0 
-  },
-  sub: {
-    file: "",
-    data: null,
-    width: 0,
-    height: 0 
-  }
+  main: initialStateMainOrSub,
+  sub: initialStateMainOrSub
 };
 
 function openFile(state, mainFilePath) {
@@ -120,6 +116,47 @@ function redrawPage(state) {
   return state;
 }
 
+function singleNextPage(state) {
+  if (state.files.length < 1) {
+    return state;
+  }
+
+  if (state.main.file == "") {
+    return state;
+  }
+
+  const currentIndex = state.files.indexOf(state.main.file);
+  const nextIndex = currentIndex + 1;
+  if (nextIndex >= state.files.length) {
+    const nextFile = state.files[nextIndex];
+    const nextFilePath = path.join(state.directory, nextFile);
+    const nextFileData = ImageUtil.getImageData(nextFilePath);
+    return {
+      ...state,
+      main: {
+        file: nextFile,
+        data: nextFileData.data,
+        width: nextFileData.width,
+        htight: nextFileData.height
+      },
+      sub: initialStateMainOrSub
+    }
+  } else {
+    const nextFile = state.files[0];
+    const nextFilePath = path.join(state.directory, nextFile);
+    const nextFileData = ImageUtil.getImageData(nextFilePath);
+    return {
+      ...state,
+      main: {
+        file: nextFile,
+        data: nextFileData.data,
+        width: nextFileData.width,
+        htight: nextFileData.height
+      },
+      sub: initialStateMainOrSub
+  }
+}
+
 export default function pages(state = initialState, action) {
   switch (action.type) {
     case OPEN_FILE:
@@ -127,7 +164,7 @@ export default function pages(state = initialState, action) {
     case REDRAW_PAGE:
       return redrawPage(state);
     case SINGLE_NEXT_PAGE:
-      return;
+      return singleNextPage(state);
     case SINGLE_PREVIEW_PAGE:
       return;
     case DOUBLE_NEXT_PAGE:
