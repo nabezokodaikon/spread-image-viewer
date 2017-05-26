@@ -15,8 +15,18 @@ import {
 const initialState = {
   directory: "",
   files: [],
-  main: "",
-  sub: ""
+  main: {
+    file: "",
+    data: null,
+    width: 0,
+    height: 0 
+  },
+  sub: {
+    file: "",
+    data: null,
+    width: 0,
+    height: 0 
+  }
 };
 
 function openFile(state, mainFilePath) {
@@ -26,51 +36,81 @@ function openFile(state, mainFilePath) {
     return state;
   }
 
-  const main = path.basename(mainFilePath);
-  const mainIndex = files.indexOf(main);
+  const mainFile = path.basename(mainFilePath);
+  const mainIndex = files.indexOf(mainFile);
   if (mainIndex < 0) {
     return state;
   }
 
+  const mainData = ImageUtil.getImageSize(mainFilePath);
   const mainOnlyState = {
     directory: directory,
     files: files,
-    main: main,
-    sub: ""
+    main: {
+      file: mainFile,
+      data: mainData.data,
+      width: mainData.width,
+      height: mainData.height
+    },
+    sub: {
+      file: "",
+      data: null,
+      width: 0,
+      height: 0 
+    }
   };
 
-  const mainSize = ImageUtil.getImageSize(mainFilePath);
-  if (mainSize.height > mainSize.width) {
+  if (mainData.height > mainData.width) {
     return mainOnlyState;
   }
 
   const subIndex = mainIndex + 1;
   if (subIndex < files.length) {
-    const sub = files[subIndex];
-    const subFilePath = path.join(directory, sub);
-    const subSize = ImageUtil.getImageSize(subFilePath);
-    if (subSize.height > subSize.width) {
+    const subFile = files[subIndex];
+    const subFilePath = path.join(directory, subFile);
+    const subData = ImageUtil.getImageSize(subFilePath);
+    if (subData.height > subData.width) {
       return mainOnlyState;
     } else {
       return {
         directory: directory,
         files: files,
-        main: main,
-        sub: sub
+        main: {
+          file: mainFile,
+          data: mainData.data,
+          width: mainData.width,
+          height: mainData.height
+        },
+        sub: {
+          file: subFile,
+          data: subData.data,
+          width: subData.width,
+          height: subData.height 
+        }
       };
     }
   } else {
-    const sub = files[0];
-    const subFilePath = path.join(directory, sub);
-    const subSize = ImageUtil.getImageSize(subFilePath);
-    if (subSize.height > subSize.width) {
+    const subFile = files[0];
+    const subFilePath = path.join(directory, subFile);
+    const subData = ImageUtil.getImageSize(subFilePath);
+    if (subData.height > subData.width) {
       return mainOnlyState;
     } else {
       return {
         directory: directory,
         files: files,
-        main: main,
-        sub: sub
+        main: {
+          file: mainFile,
+          data: mainData.data,
+          width: mainData.width,
+          height: mainData.height
+        },
+        sub: {
+          file: subFile,
+          data: subData.data,
+          width: subData.width,
+          height: subData.height 
+        }
       };
     }
   }
