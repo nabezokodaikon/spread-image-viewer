@@ -116,12 +116,16 @@ function openFile(state, mainFilePath) {
   }
 }
 
+function redrawPage(state) {
+  return state;
+}
+
 export default function pages(state = initialState, action) {
   switch (action.type) {
     case OPEN_FILE:
       return openFile(state, action.filePath);
     case REDRAW_PAGE:
-      return;
+      return redrawPage(state);
     case SINGLE_NEXT_PAGE:
       return;
     case SINGLE_PREVIEW_PAGE:

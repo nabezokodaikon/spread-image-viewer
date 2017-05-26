@@ -216,4 +216,47 @@ describe("pages reducer", () => {
       }
     });
   });
+
+  it("should handle REDRAW_PAGE", () => {
+
+    const mainData = new Object("main");
+    const subData = new Object("sub");
+
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02", "img03"],
+        main: {
+          file: "img03",
+          data: mainData,
+          width: 2,
+          height: 2 
+        },
+        sub: {
+          file: "img01",
+          data: subData,
+          width: 2,
+          height: 2 
+        }
+      },
+      {
+        type: types.REDRAW_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02", "img03"],
+      main: {
+        file: "img03",
+        data: mainData,
+        width: 2,
+        height: 2 
+      },
+      sub: {
+        file: "img01",
+        data: subData,
+        width: 2,
+        height: 2 
+      }
+    });
+  });
 });
