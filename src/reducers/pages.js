@@ -118,8 +118,8 @@ function singleNextPage(state) {
 
   const currentIndex = state.files.indexOf(state.main.file);
   const nextIndex = currentIndex + 1;
-  if (nextIndex >= state.files.length) {
-    const nextFile = state.files[0];
+  if (nextIndex < state.files.length) {
+    const nextFile = state.files[nextIndex];
     const nextFilePath = path.join(state.directory, nextFile);
     const nextFileData = ImageUtil.getImageData(nextFilePath);
     return {
@@ -134,7 +134,7 @@ function singleNextPage(state) {
       sub: initialStateMainOrSub
     }
   } else {
-    const nextFile = state.files[nextIndex];
+    const nextFile = state.files[0];
     const nextFilePath = path.join(state.directory, nextFile);
     const nextFileData = ImageUtil.getImageData(nextFilePath);
     return {

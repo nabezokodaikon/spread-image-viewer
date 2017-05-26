@@ -248,37 +248,6 @@ describe("pages reducer", () => {
 
     ImageUtil.getImageData = jest.fn()
       .mockImplementationOnce(f => {
-        return { data: otherData1, width: 2, height: 3 };
-      })
-    expect(pages(
-      {
-        directory: "/img",
-        files: ["img01", "img02", "img03"],
-        main: {
-          file: "img03",
-          data: mainData,
-          width: 1,
-          height: 1 
-        },
-        sub: initialStateMainOrSub
-      },
-      {
-        type: types.SINGLE_NEXT_PAGE
-      })
-    ).toEqual({
-      directory: "/img",
-      files: ["img01", "img02", "img03"],
-      main: {
-        file: "img01",
-        data: otherData1,
-        width: 2,
-        height: 3 
-      },
-      sub: initialStateMainOrSub
-    });
-
-    ImageUtil.getImageData = jest.fn()
-      .mockImplementationOnce(f => {
         return { data: otherData1, width: 2, height: 2 };
       })
     expect(pages(
@@ -304,6 +273,37 @@ describe("pages reducer", () => {
         data: otherData1,
         width: 2,
         height: 2 
+      },
+      sub: initialStateMainOrSub
+    });
+
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 2, height: 3 };
+      })
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02", "img03"],
+        main: {
+          file: "img03",
+          data: mainData,
+          width: 1,
+          height: 1 
+        },
+        sub: initialStateMainOrSub
+      },
+      {
+        type: types.SINGLE_NEXT_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02", "img03"],
+      main: {
+        file: "img01",
+        data: otherData1,
+        width: 2,
+        height: 3 
       },
       sub: initialStateMainOrSub
     });
