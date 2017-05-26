@@ -151,6 +151,46 @@ function singleNextPage(state) {
   }
 }
 
+function singlePreviewPage(state = initialState) {
+  if (state.directory == "") {
+    return state;
+  }
+
+  const currentIndex = state.files.indexOf(state.main.file);
+  const prevIndex = currentIndex - 1;
+  if (prevIndex > -1) {
+    const prevFile = state.files[prevIndex];
+    const prevFilePath = path.join(state.directory, prevFile);
+    const prevFileData = ImageUtil.getImageData(prevFilePath);
+    return {
+      directory: state.directory,
+      files: state.files,
+      main: {
+        file: prevFile,
+        data: prevFileData.data,
+        width: prevFileData.width,
+        height: prevFileData.height
+      },
+      sub: initialStateMainOrSub
+    }
+  } else {
+    const prevFile = state.files[state.files.length - 1];
+    const prevFilePath = path.join(state.directory, prevFile);
+    const prevFileData = ImageUtil.getImageData(prevFilePath);
+    return {
+      directory: state.directory,
+      files: state.files,
+      main: {
+        file: prevFile,
+        data: prevFileData.data,
+        width: prevFileData.width,
+        height: prevFileData.height
+      },
+      sub: initialStateMainOrSub
+    }
+  }
+}
+
 export default function pages(state = initialState, action) {
   switch (action.type) {
     case OPEN_FILE:
@@ -160,7 +200,7 @@ export default function pages(state = initialState, action) {
     case SINGLE_NEXT_PAGE:
       return singleNextPage(state);
     case SINGLE_PREVIEW_PAGE:
-      return;
+      return singlePreviewPage(state);
     case DOUBLE_NEXT_PAGE:
       return;
     case DOUBLE_PREVIEW_PAGE:
