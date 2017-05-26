@@ -112,32 +112,13 @@ function redrawPage(state) {
 }
 
 function singleNextPage(state) {
-  if (state.files.length < 1) {
-    return state;
-  }
-
-  if (state.main.file == "") {
+  if (state.directory == "") {
     return state;
   }
 
   const currentIndex = state.files.indexOf(state.main.file);
   const nextIndex = currentIndex + 1;
   if (nextIndex >= state.files.length) {
-    const nextFile = state.files[nextIndex];
-    const nextFilePath = path.join(state.directory, nextFile);
-    const nextFileData = ImageUtil.getImageData(nextFilePath);
-    return {
-      directory: state.directory,
-      files: state.files,
-      main: {
-        file: nextFile,
-        data: nextFileData.data,
-        width: nextFileData.width,
-        htight: nextFileData.height
-      },
-      sub: initialStateMainOrSub
-    }
-  } else {
     const nextFile = state.files[0];
     const nextFilePath = path.join(state.directory, nextFile);
     const nextFileData = ImageUtil.getImageData(nextFilePath);
@@ -148,7 +129,22 @@ function singleNextPage(state) {
         file: nextFile,
         data: nextFileData.data,
         width: nextFileData.width,
-        htight: nextFileData.height
+        height: nextFileData.height
+      },
+      sub: initialStateMainOrSub
+    }
+  } else {
+    const nextFile = state.files[nextIndex];
+    const nextFilePath = path.join(state.directory, nextFile);
+    const nextFileData = ImageUtil.getImageData(nextFilePath);
+    return {
+      directory: state.directory,
+      files: state.files,
+      main: {
+        file: nextFile,
+        data: nextFileData.data,
+        width: nextFileData.width,
+        height: nextFileData.height
       },
       sub: initialStateMainOrSub
     }

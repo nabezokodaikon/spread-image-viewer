@@ -3,12 +3,19 @@ import pages from "./pages";
 import FileUtil from "../utils/FileUtil";
 import ImageUtil from "../utils/ImageUtil";
 
+const mainData = new Object("main");
+const subData = new Object("sub");
+const otherData1 = new Object("other1");
+const otherData2 = new Object("other2");
+const initialStateMainOrSub = {
+  file: "",
+  data: null,
+  width: 0,
+  height: 0
+};
+
 describe("pages reducer", () => {
   it("should handle OPEN_FILE", () => {
-
-    const mainData = new Object("main");
-    const subData = new Object("sub");
-
     FileUtil.getImageFiles = jest.fn()
       .mockImplementationOnce(f => []);
     expect(pages(
@@ -20,18 +27,8 @@ describe("pages reducer", () => {
     ).toEqual({
       directory: "",
       files: [],
-      main: {
-        file: "",
-        data: null,
-        width: 0,
-        height: 0 
-      },
-      sub: {
-        file: "",
-        data: null,
-        width: 0,
-        height: 0 
-      }
+      main: initialStateMainOrSub,
+      sub: initialStateMainOrSub
     });
 
     FileUtil.getImageFiles = jest.fn()
@@ -45,18 +42,8 @@ describe("pages reducer", () => {
     ).toEqual({
       directory: "",
       files: [],
-      main: {
-        file: "",
-        data: null,
-        width: 0,
-        height: 0 
-      },
-      sub: {
-        file: "",
-        data: null,
-        width: 0,
-        height: 0 
-      }
+      main: initialStateMainOrSub,
+      sub: initialStateMainOrSub
     });
 
     FileUtil.getImageFiles = jest.fn()
@@ -80,12 +67,7 @@ describe("pages reducer", () => {
         width: 1,
         height: 2 
       },
-      sub: {
-        file: "",
-        data: null,
-        width: 0,
-        height: 0 
-      }
+      sub: initialStateMainOrSub
     });
 
     FileUtil.getImageFiles = jest.fn()
@@ -112,12 +94,7 @@ describe("pages reducer", () => {
         width: 2,
         height: 2 
       },
-      sub: {
-        file: "",
-        data: null,
-        width: 0,
-        height: 0 
-      }
+      sub: initialStateMainOrSub
     });
 
     FileUtil.getImageFiles = jest.fn()
@@ -176,12 +153,7 @@ describe("pages reducer", () => {
         width: 2,
         height: 2 
       },
-      sub: {
-        file: "",
-        data: null,
-        width: 0,
-        height: 0 
-      }
+      sub: initialStateMainOrSub
     });
 
     FileUtil.getImageFiles = jest.fn()
@@ -218,10 +190,6 @@ describe("pages reducer", () => {
   });
 
   it("should handle REDRAW_PAGE", () => {
-
-    const mainData = new Object("main");
-    const subData = new Object("sub");
-
     expect(pages(
       {
         directory: "/img",
@@ -257,6 +225,87 @@ describe("pages reducer", () => {
         width: 2,
         height: 2 
       }
+    });
+  });
+
+  it("should handle SINGLE_NEXT_PAGE", () => {
+    expect(pages(
+      {
+        directory: "",
+        files: [],
+        main: initialStateMainOrSub,
+        sub: initialStateMainOrSub
+      },
+      {
+        type: types.SINGLE_NEXT_PAGE
+      })
+    ).toEqual({
+      directory: "",
+      files: [],
+      main: initialStateMainOrSub,
+      sub: initialStateMainOrSub
+    });
+
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 2, height: 3 };
+      })
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02", "img03"],
+        main: {
+          file: "img03",
+          data: mainData,
+          width: 1,
+          height: 1 
+        },
+        sub: initialStateMainOrSub
+      },
+      {
+        type: types.SINGLE_NEXT_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02", "img03"],
+      main: {
+        file: "img01",
+        data: otherData1,
+        width: 2,
+        height: 3 
+      },
+      sub: initialStateMainOrSub
+    });
+
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 2, height: 2 };
+      })
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02", "img03"],
+        main: {
+          file: "img02",
+          data: mainData,
+          width: 1,
+          height: 1 
+        },
+        sub: initialStateMainOrSub
+      },
+      {
+        type: types.SINGLE_NEXT_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02", "img03"],
+      main: {
+        file: "img03",
+        data: otherData1,
+        width: 2,
+        height: 2 
+      },
+      sub: initialStateMainOrSub
     });
   });
 });
