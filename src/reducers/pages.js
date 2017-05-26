@@ -38,7 +38,7 @@ function openFile(state, mainFilePath) {
     return state;
   }
 
-  const mainData = ImageUtil.getImageSize(mainFilePath);
+  const mainData = ImageUtil.getImageData(mainFilePath);
   const mainOnlyState = {
     directory: directory,
     files: files,
@@ -48,12 +48,7 @@ function openFile(state, mainFilePath) {
       width: mainData.width,
       height: mainData.height
     },
-    sub: {
-      file: "",
-      data: null,
-      width: 0,
-      height: 0 
-    }
+    sub: initialStateMainOrSub
   };
 
   if (mainData.height > mainData.width) {
@@ -64,7 +59,7 @@ function openFile(state, mainFilePath) {
   if (subIndex < files.length) {
     const subFile = files[subIndex];
     const subFilePath = path.join(directory, subFile);
-    const subData = ImageUtil.getImageSize(subFilePath);
+    const subData = ImageUtil.getImageData(subFilePath);
     if (subData.height > subData.width) {
       return mainOnlyState;
     } else {
@@ -88,7 +83,7 @@ function openFile(state, mainFilePath) {
   } else {
     const subFile = files[0];
     const subFilePath = path.join(directory, subFile);
-    const subData = ImageUtil.getImageSize(subFilePath);
+    const subData = ImageUtil.getImageData(subFilePath);
     if (subData.height > subData.width) {
       return mainOnlyState;
     } else {
@@ -132,7 +127,8 @@ function singleNextPage(state) {
     const nextFilePath = path.join(state.directory, nextFile);
     const nextFileData = ImageUtil.getImageData(nextFilePath);
     return {
-      ...state,
+      directory: state.directory,
+      files: state.files,
       main: {
         file: nextFile,
         data: nextFileData.data,
@@ -146,7 +142,8 @@ function singleNextPage(state) {
     const nextFilePath = path.join(state.directory, nextFile);
     const nextFileData = ImageUtil.getImageData(nextFilePath);
     return {
-      ...state,
+      directory: state.directory,
+      files: state.files,
       main: {
         file: nextFile,
         data: nextFileData.data,
@@ -154,6 +151,7 @@ function singleNextPage(state) {
         htight: nextFileData.height
       },
       sub: initialStateMainOrSub
+    }
   }
 }
 

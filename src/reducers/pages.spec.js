@@ -61,7 +61,7 @@ describe("pages reducer", () => {
 
     FileUtil.getImageFiles = jest.fn()
       .mockImplementationOnce(f => ["img01"]);
-    ImageUtil.getImageSize = jest.fn()
+    ImageUtil.getImageData = jest.fn()
       .mockImplementationOnce(f => {
         return { data: mainData, width: 1, height: 2 };
       });
@@ -90,7 +90,7 @@ describe("pages reducer", () => {
 
     FileUtil.getImageFiles = jest.fn()
       .mockImplementationOnce(f => ["img01", "img02"]);
-    ImageUtil.getImageSize = jest.fn()
+    ImageUtil.getImageData = jest.fn()
       .mockImplementationOnce(f => {
         return { data: mainData, width: 2, height: 2 };
       })
@@ -122,7 +122,7 @@ describe("pages reducer", () => {
 
     FileUtil.getImageFiles = jest.fn()
       .mockImplementationOnce(f => ["img01", "img02"]);
-    ImageUtil.getImageSize = jest.fn()
+    ImageUtil.getImageData = jest.fn()
       .mockImplementationOnce(f => {
         return { data: mainData, width: 2, height: 2 };
       })
@@ -154,7 +154,7 @@ describe("pages reducer", () => {
 
     FileUtil.getImageFiles = jest.fn()
       .mockImplementationOnce(f => ["img01", "img02", "img03"]);
-    ImageUtil.getImageSize = jest.fn()
+    ImageUtil.getImageData = jest.fn()
       .mockImplementationOnce(f => {
         return { data: mainData, width: 2, height: 2 };
       })
@@ -186,7 +186,7 @@ describe("pages reducer", () => {
 
     FileUtil.getImageFiles = jest.fn()
       .mockImplementationOnce(f => ["img01", "img02", "img03"]);
-    ImageUtil.getImageSize = jest.fn()
+    ImageUtil.getImageData = jest.fn()
       .mockImplementationOnce(f => {
         return { data: mainData, width: 2, height: 2 };
       })
