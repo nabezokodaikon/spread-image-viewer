@@ -25,6 +25,7 @@
   },
   "scripts": {
     "test": "jest",
+    "coverage": "jest --coverage",
     "clean": "rimraf dest",
     "build": "./node_modules/.bin/babel src --out-dir dest --ignore *.spec.js",
     "debug": "npm run build && ./node_modules/.bin/electron --js-flags='--harmony-tailcalls' .",

@@ -6,3 +6,4 @@ dest
 .DS_Store
 sample-resource
 temp.js
+coverage
