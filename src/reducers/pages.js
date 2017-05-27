@@ -151,7 +151,7 @@ function singleNextPage(state) {
   }
 }
 
-function singlePreviewPage(state = initialState) {
+function singlePreviewPage(state) {
   if (state.directory == "") {
     return state;
   }
@@ -191,215 +191,140 @@ function singlePreviewPage(state = initialState) {
   }
 }
 
-function doubleNextPage(state = initialState) {
-  if (state.directory == "") {
+function doubleNextPage(state) {
+  if (state.files.length < 1) {
     return state;
   }
 
   if (state.files.length == 1) {
-    return {
-      directory: state.directory,
-      files: state.files,
-      main: state.main,
-      sub: initialStateMainOrSub
-    };
+    return state;
   }
-
+  
   if (state.files.length == 2) {
-    return {
-      directory: state.directory,
-      files: state.files,
-      main: state.main,
-      sub: state.sub
-    };
+    if (state.sub.file == "") {
+      const currentIndex = state.files.indexOf(state.main.file);
+      const nextIndex = currentIndex + 1;
+      if (nextIndex < state.files.length) {
+        const nextMainFile = state.files[nextIndex];
+        const nextMainFilePath = path.join(state.directory, nextMainFile);
+        const nextMainData = ImageUtil.getImageData(nextMainFilePath);
+        return {
+          directory: state.directory,
+          files: state.files,
+          main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
+          sub: initialStateMainOrSub
+        };
+      }
+
+      const nextMainFile = state.files[0];
+      const nextMainFilePath = path.join(state.directory, nextMainFile);
+      const nextMainData = ImageUtil.getImageData(nextMainFilePath);
+      return {
+        directory: state.directory,
+        files: state.files,
+        main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
+        sub: initialStateMainOrSub
+      };
+    }
+
+    return state;
   }
 
-  if (state.sub.file == "") {
-    const currentIndex = state.files.indexOf(state.main.file);
-    const nextIndex1 = currentIndex + 1;
+  function getNextState(state, currentIndex) {
+    const nextIndex1= currentIndex + 1;
     if (nextIndex1 < state.files.length) {
       const nextMainFile = state.files[nextIndex1];
       const nextMainFilePath = path.join(state.directory, nextMainFile);
       const nextMainData = ImageUtil.getImageData(nextMainFilePath);
-      if (nextMainData.width <= nextMainData.height) {
-        const nextIndex2 = nextIndex1 + 1;
-        if (nextIndex2 < state.files.length) {
-          const nextSubFile = state.files[nextIndex2];
-          const nextSubFilePath = path.join(state.directory, nextSubFile);
-          const nextSubData = ImageUtil.getImageData(nextSubFilePath);
-          if (nextSubData.width <= nextSubData.height) {
-            return {
-              directory: state.directory,
-              files: state.files,
-              main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-              sub: { file: nextSubFile, data: nextSubData.data, width: nextSubData.width, height: nextSubData.height }
-            };
-          } else {
-            return {
-              directory: state.directory,
-              files: state.files,
-              main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-              sub: initialStateMainOrSub 
-            };
-          }
-        } else {
-          const nextSubFile = state.files[0];
-          const nextSubFilePath = path.join(state.directory, nextSubFile);
-          const nextSubData = ImageUtil.getImageData(nextSubFilePath);
-          if (nextSubData.width <= nextSubData.height) {
-            return {
-              directory: state.directory,
-              files: state.files,
-              main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-              sub: { file: nextSubFile, data: nextSubData.data, width: nextSubData.width, height: nextSubData.height }
-            };
-          } else {
-            return {
-              directory: state.directory,
-              files: state.files,
-              main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-              sub: initialStateMainOrSub 
-            };
-          }
-        }
-      } else {
+      if (nextMainData.width >= nextMainData.height) {
         return {
           directory: state.directory,
           files: state.files,
           main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-          sub: initialStateMainOrSub 
-        }
-      }
-    } else {
-      const nextMainFile = state.files[0];
-      const nextMainFilePath = path.join(state.directory, nextMainFile);
-      const nextMainData = ImageUtil.getImageData(nextMainFilePath);
-      if (nextMainData.width <= nextMainData.height) {
-        const nextIndex2 = 1;
-        if (nextIndex2 < state.files.length) {
-          const nextSubFile = state.files[nextIndex2];
-          const nextSubFilePath = path.join(state.directory, nextSubFile);
-          const nextSubData = ImageUtil.getImageData(nextSubFilePath);
-          if (nextSubData.width <= nextSubData.height) {
-            return {
-              directory: state.directory,
-              files: state.files,
-              main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-              sub: { file: nextSubFile, data: nextSubData.data, width: nextSubData.width, height: nextSubData.height }
-            };
-          } else {
-            return {
-              directory: state.directory,
-              files: state.files,
-              main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-              sub: initialStateMainOrSub 
-            };
-          }
-        } else {
-          throw "It does not execute.";
-        }
-      } else {
-        return {
-          directory: state.directory,
-          files: state.files,
-          main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-          sub: initialStateMainOrSub 
+          sub: initialStateMainOrSub
         };
       }
-    }
-  } 
 
-  const currentIndex = state.files.indexOf(state.sub.file);
-  const nextIndex1 = currentIndex + 1;
-  if (nextIndex1 < state.files.length) {
-    const nextMainFile = state.files[nextIndex1];
-    const nextMainFilePath = path.join(state.directory, nextMainFile);
-    const nextMainData = ImageUtil.getImageData(nextMainFilePath);
-    if (nextMainData.width <= nextMainData.height) {
       const nextIndex2 = nextIndex1 + 1;
       if (nextIndex2 < state.files.length) {
         const nextSubFile = state.files[nextIndex2];
         const nextSubFilePath = path.join(state.directory, nextSubFile);
         const nextSubData = ImageUtil.getImageData(nextSubFilePath);
-        if (nextSubData.width <= nextSubData.height) {
+        if (nextSubData.height > nextSubData.width) {
           return {
             directory: state.directory,
             files: state.files,
             main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
             sub: { file: nextSubFile, data: nextSubData.data, width: nextSubData.width, height: nextSubData.height }
           };
-        } else {
-          return {
-            directory: state.directory,
-            files: state.files,
-            main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-            sub: initialStateMainOrSub 
-          };
         }
-      } else {
-        const nextSubFile = state.files[0];
-        const nextSubFilePath = path.join(state.directory, nextSubFile);
-        const nextSubData = ImageUtil.getImageData(nextSubFilePath);
-        if (nextSubData.width <= nextSubData.height) {
-          return {
-            directory: state.directory,
-            files: state.files,
-            main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-            sub: { file: nextSubFile, data: nextSubData.data, width: nextSubData.width, height: nextSubData.height }
-          };
-        } else {
-          return {
-            directory: state.directory,
-            files: state.files,
-            main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-            sub: initialStateMainOrSub 
-          };
-        }
+        
+        return {
+          directory: state.directory,
+          files: state.files,
+          main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
+          sub: initialStateMainOrSub
+        };
       }
-    } else {
+
+      const nextSubFile = state.files[0];
+      const nextSubFilePath = path.join(state.directory, nextSubFile);
+      const nextSubData = ImageUtil.getImageData(nextSubFilePath);
+      if (nextSubData.height > nextSubData.width) {
+        return {
+          directory: state.directory,
+          files: state.files,
+          main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
+          sub: { file: nextSubFile, data: nextSubData.data, width: nextSubData.width, height: nextSubData.height }
+        };
+      }
+      
       return {
         directory: state.directory,
         files: state.files,
         main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-        sub: initialStateMainOrSub 
+        sub: initialStateMainOrSub
       };
     }
-  } else {
+
     const nextMainFile = state.files[0];
     const nextMainFilePath = path.join(state.directory, nextMainFile);
     const nextMainData = ImageUtil.getImageData(nextMainFilePath);
-    if (nextMainData.width <= nextMainData.height) {
-      const nextIndex2 = 1;
-      if (nextIndex2 < state.files.length) {
-        const nextSubFile = state.files[nextIndex2];
-        const nextSubFilePath = path.join(state.directory, nextSubFile);
-        const nextSubData = ImageUtil.getImageData(nextSubFilePath);
-        if (nextSubData.width <= nextSubData.height) {
-          return {
-            directory: state.directory,
-            files: state.files,
-            main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-            sub: { file: nextSubFile, data: nextSubData.data, width: nextSubData.width, height: nextSubData.height }
-          };
-        } else {
-          return {
-            directory: state.directory,
-            files: state.files,
-            main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-            sub: initialStateMainOrSub 
-          };
-        }
-      } else {
-        throw "It does not execute.";
-      }
-    } else {
+    if (nextMainData.width >= nextMainData.height) {
       return {
         directory: state.directory,
         files: state.files,
         main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
-        sub: initialStateMainOrSub 
+        sub: initialStateMainOrSub
       };
     }
+
+    const nextSubFile = state.files[1];
+    const nextSubFilePath = path.join(state.directory, nextSubFile);
+    const nextSubData = ImageUtil.getImageData(nextSubFilePath);
+    if (nextSubData.width >= nextSubData.height) {
+      return {
+        directory: state.directory,
+        files: state.files,
+        main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
+        sub: initialStateMainOrSub
+      };
+    }
+
+    return {
+      directory: state.directory,
+      files: state.files,
+      main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
+      sub: { file: nextSubFile, data: nextSubData.data, width: nextSubData.width, height: nextSubData.height }
+    };
+  }
+
+  if (state.sub.file == "") {
+    const currentIndex = state.files.indexOf(state.main.file);
+    return getNextState(state, currentIndex);
+  } else {
+    const currentIndex = state.files.indexOf(state.sub.file);
+    return getNextState(state, currentIndex);
   }
 }
 
@@ -418,6 +343,6 @@ export default function pages(state = initialState, action) {
     case DOUBLE_PREVIEW_PAGE:
       return;
     default:
-      throw `Action type ${action.type} is not define.`
+      throw `Action type "${action.type}" is not define.`
   }
 }
