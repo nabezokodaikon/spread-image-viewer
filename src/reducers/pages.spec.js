@@ -1101,4 +1101,449 @@ describe("pages reducer", () => {
     });
   });
 
+  it("should handle DOUBLE_PREVIEW_PAGE", () => {
+    expect(pages(
+      undefined,
+      {
+        type: types.DOUBLE_PREVIEW_PAGE
+      })
+    ).toEqual({
+      directory: "",
+      files: [],
+      main: initialStateMainOrSub,
+      sub: initialStateMainOrSub
+    });
+
+    expect(pages( {
+        directory: "/img",
+        files: [],
+        main: initialStateMainOrSub,
+        sub: initialStateMainOrSub
+      },
+      {
+        type: types.DOUBLE_PREVIEW_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: [],
+      main: initialStateMainOrSub,
+      sub: initialStateMainOrSub
+    });
+
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01"],
+        main: {
+          file: "img01",
+          data: mainData,
+          width: 1,
+          height: 2 
+        },
+        sub: initialStateMainOrSub
+      },
+      {
+        type: types.DOUBLE_PREVIEW_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01"],
+      main: {
+        file: "img01",
+        data: mainData,
+        width: 1,
+        height: 2 
+      },
+      sub: initialStateMainOrSub
+    });
+
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02"],
+        main: {
+          file: "img01",
+          data: mainData,
+          width: 1,
+          height: 2 
+        },
+        sub: {
+          file: "img02",
+          data: subData,
+          width: 3,
+          height: 4 
+        }
+      },
+      {
+        type: types.DOUBLE_PREVIEW_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02"],
+      main: {
+        file: "img01",
+        data: mainData,
+        width: 1,
+        height: 2 
+      },
+      sub: {
+        file: "img02",
+        data: subData,
+        width: 3,
+        height: 4 
+      }
+    });
+
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 5, height: 6 };
+      });
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02"],
+        main: {
+          file: "img02",
+          data: mainData,
+          width: 1,
+          height: 2 
+        },
+        sub: initialStateMainOrSub 
+      },
+      {
+        type: types.DOUBLE_PREVIEW_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02"],
+      main: {
+        file: "img01",
+        data: otherData1,
+        width: 5,
+        height: 6 
+      },
+      sub: initialStateMainOrSub 
+    });
+
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 5, height: 6 };
+      });
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02"],
+        main: {
+          file: "img01",
+          data: mainData,
+          width: 1,
+          height: 2 
+        },
+        sub: initialStateMainOrSub 
+      },
+      {
+        type: types.DOUBLE_PREVIEW_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02"],
+      main: {
+        file: "img02",
+        data: otherData1,
+        width: 5,
+        height: 6 
+      },
+      sub: initialStateMainOrSub 
+    });
+
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 7, height: 6 };
+      });
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02", "img03", "img04"],
+        main: {
+          file: "img03",
+          data: mainData,
+          width: 1,
+          height: 2 
+        },
+        sub: initialStateMainOrSub 
+      },
+      {
+        type: types.DOUBLE_PREVIEW_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02", "img03", "img04"],
+      main: {
+        file: "img02",
+        data: otherData1,
+        width: 7,
+        height: 6 
+      },
+      sub: initialStateMainOrSub 
+    });
+
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 5, height: 6 };
+      })
+      .mockImplementationOnce(f => {
+        return { data: otherData2, width: 7, height: 8 };
+      });
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02", "img03", "img04"],
+        main: {
+          file: "img03",
+          data: mainData,
+          width: 1,
+          height: 2 
+        },
+        sub: initialStateMainOrSub 
+      },
+      {
+        type: types.DOUBLE_PREVIEW_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02", "img03", "img04"],
+      main: {
+        file: "img02",
+        data: otherData1,
+        width: 5,
+        height: 6 
+      },
+      sub: {
+        file: "img01",
+        data: otherData2,
+        width: 7,
+        height: 8 
+      }
+    });
+
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 5, height: 6 };
+      })
+      .mockImplementationOnce(f => {
+        return { data: otherData2, width: 9, height: 8 };
+      });
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02", "img03", "img04"],
+        main: {
+          file: "img03",
+          data: mainData,
+          width: 1,
+          height: 2 
+        },
+        sub: initialStateMainOrSub 
+      },
+      {
+        type: types.DOUBLE_PREVIEW_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02", "img03", "img04"],
+      main: {
+        file: "img02",
+        data: otherData1,
+        width: 5,
+        height: 6 
+      },
+      sub: initialStateMainOrSub
+    });
+
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 5, height: 6 };
+      })
+      .mockImplementationOnce(f => {
+        return { data: otherData2, width: 7, height: 8 };
+      });
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02", "img03", "img04"],
+        main: {
+          file: "img02",
+          data: mainData,
+          width: 1,
+          height: 2 
+        },
+        sub: initialStateMainOrSub 
+      },
+      {
+        type: types.DOUBLE_PREVIEW_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02", "img03", "img04"],
+      main: {
+        file: "img01",
+        data: otherData1,
+        width: 5,
+        height: 6 
+      },
+      sub: {
+        file: "img04",
+        data: otherData2,
+        width: 7,
+        height: 8 
+      }
+    });
+
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 5, height: 6 };
+      })
+      .mockImplementationOnce(f => {
+        return { data: otherData2, width: 9, height: 8 };
+      });
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02", "img03", "img04"],
+        main: {
+          file: "img02",
+          data: mainData,
+          width: 1,
+          height: 2 
+        },
+        sub: initialStateMainOrSub 
+      },
+      {
+        type: types.DOUBLE_PREVIEW_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02", "img03", "img04"],
+      main: {
+        file: "img01",
+        data: otherData1,
+        width: 5,
+        height: 6 
+      },
+      sub: initialStateMainOrSub
+    });
+
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 7, height: 6 };
+      });
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02", "img03", "img04"],
+        main: {
+          file: "img01",
+          data: mainData,
+          width: 1,
+          height: 2 
+        },
+        sub: initialStateMainOrSub 
+      },
+      {
+        type: types.DOUBLE_PREVIEW_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02", "img03", "img04"],
+      main: {
+        file: "img04",
+        data: otherData1,
+        width: 7,
+        height: 6 
+      },
+      sub: initialStateMainOrSub
+    });
+
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 5, height: 6 };
+      })
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 9, height: 8 };
+      });
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02", "img03", "img04"],
+        main: {
+          file: "img01",
+          data: mainData,
+          width: 1,
+          height: 2 
+        },
+        sub: initialStateMainOrSub 
+      },
+      {
+        type: types.DOUBLE_PREVIEW_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02", "img03", "img04"],
+      main: {
+        file: "img04",
+        data: otherData1,
+        width: 5,
+        height: 6 
+      },
+      sub: initialStateMainOrSub
+    });
+
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 5, height: 6 };
+      })
+      .mockImplementationOnce(f => {
+        return { data: otherData2, width: 7, height: 8 };
+      });
+    expect(pages(
+      {
+        directory: "/img",
+        files: ["img01", "img02", "img03", "img04"],
+        main: {
+          file: "img01",
+          data: mainData,
+          width: 1,
+          height: 2 
+        },
+        sub: initialStateMainOrSub 
+      },
+      {
+        type: types.DOUBLE_PREVIEW_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02", "img03", "img04"],
+      main: {
+        file: "img04",
+        data: otherData1,
+        width: 5,
+        height: 6 
+      },
+      sub: {
+        file: "img03",
+        data: otherData2,
+        width: 7,
+        height: 8 
+      }
+    });
+  });
+
+  it("should handle other action type", () => {
+    expect(() => pages(
+      undefined,
+      {
+        type: "OTHER"
+      })
+    ).toThrowError("Action type \"OTHER\" is not define.");
+  });
 });
