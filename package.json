@@ -28,8 +28,8 @@
     "test": "jest",
     "coverage": "jest --coverage",
     "clean": "rimraf dest && rimraf .yarnclean && rimraf node_modules && yarn",
-    "build": "./node_modules/.bin/babel src --out-dir dest --ignore *.spec.js",
-    "debug": "yarn run build && ./node_modules/.bin/electron --js-flags='--harmony-tailcalls' .",
+    "build": "./node_modules/.bin/babel src --out-dir dest --ignore *.spec.js && cpx 'src/**/*.{html,css}' dest",
+    "debug": "yarn run build && yarn run start",
     "start": "./node_modules/.bin/electron --js-flags='--harmony-tailcalls' ."
   },
   "repository": {
