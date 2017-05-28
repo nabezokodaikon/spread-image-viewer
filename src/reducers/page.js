@@ -14,7 +14,7 @@ import {
 
 const initialStateMainOrSub = {
   file: "",
-  data: null,
+  data: "",
   width: 0,
   height: 0
 };

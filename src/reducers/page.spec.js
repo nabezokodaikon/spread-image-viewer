@@ -3,13 +3,13 @@ import page from "./page";
 import FileUtil from "../utils/FileUtil";
 import ImageUtil from "../utils/ImageUtil";
 
-const mainData = new Object("main");
-const subData = new Object("sub");
-const otherData1 = new Object("other1");
-const otherData2 = new Object("other2");
+const mainData = "mainData";
+const subData = "subData";
+const otherData1 = "otherData1";
+const otherData2 = "otherData2";
 const initialStateMainOrSub = {
   file: "",
-  data: null,
+  data: "",
   width: 0,
   height: 0
 };
