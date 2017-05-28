@@ -1,7 +1,7 @@
 # State shape
 ```
 {
-  pages: {
+  page: {
     directory: "images",
     files: [
       "image01.jpg",

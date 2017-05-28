@@ -457,7 +457,7 @@ function doublePreviewPage(state) {
 }
 
 
-export default function pages(state = initialState, action) {
+export default function page(state = initialState, action) {
   switch (action.type) {
     case OPEN_FILE:
       return openFile(state, action.filePath);

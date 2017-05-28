@@ -1,5 +1,5 @@
 import * as types from "../constants/ActionTypes";
-import pages from "./pages";
+import page from "./page";
 import FileUtil from "../utils/FileUtil";
 import ImageUtil from "../utils/ImageUtil";
 
@@ -14,11 +14,11 @@ const initialStateMainOrSub = {
   height: 0
 };
 
-describe("pages reducer", () => {
+describe("page reducer", () => {
   it("should handle OPEN_FILE", () => {
     FileUtil.getImageFiles = jest.fn()
       .mockImplementationOnce(f => []);
-    expect(pages(
+    expect(page(
       undefined,
       {
         type: types.OPEN_FILE,
@@ -33,7 +33,7 @@ describe("pages reducer", () => {
 
     FileUtil.getImageFiles = jest.fn()
       .mockImplementationOnce(f => ["img01"]);
-    expect(pages(
+    expect(page(
       undefined,
       {
         type: types.OPEN_FILE,
@@ -52,7 +52,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: mainData, width: 1, height: 2 };
       });
-    expect(pages(
+    expect(page(
       undefined,
       {
         type: types.OPEN_FILE,
@@ -79,7 +79,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: subData, width: 1, height: 2 };
       });
-    expect(pages(
+    expect(page(
       undefined,
       {
         type: types.OPEN_FILE,
@@ -106,7 +106,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: subData, width: 2, height: 2 };
       });
-    expect(pages(
+    expect(page(
       undefined,
       {
         type: types.OPEN_FILE,
@@ -138,7 +138,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: subData, width: 1, height: 2 };
       });
-    expect(pages(
+    expect(page(
       undefined,
       {
         type: types.OPEN_FILE,
@@ -165,7 +165,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: subData, width: 2, height: 2 };
       });
-    expect(pages(
+    expect(page(
       undefined,
       {
         type: types.OPEN_FILE,
@@ -190,7 +190,7 @@ describe("pages reducer", () => {
   });
 
   it("should handle REDRAW_PAGE", () => {
-    expect(pages(
+    expect(page(
       undefined,
       {
         type: types.REDRAW_PAGE
@@ -202,7 +202,7 @@ describe("pages reducer", () => {
       sub: initialStateMainOrSub
     });
 
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03"],
@@ -241,7 +241,7 @@ describe("pages reducer", () => {
   });
 
   it("should handle SINGLE_NEXT_PAGE", () => {
-    expect(pages(
+    expect(page(
       undefined,
       {
         type: types.SINGLE_NEXT_PAGE
@@ -253,7 +253,7 @@ describe("pages reducer", () => {
       sub: initialStateMainOrSub
     });
 
-    expect(pages(
+    expect(page(
       {
         directory: "",
         files: [],
@@ -274,7 +274,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 2, height: 2 };
       })
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03"],
@@ -305,7 +305,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 2, height: 3 };
       })
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03"],
@@ -334,7 +334,7 @@ describe("pages reducer", () => {
   });
 
   it("should handle SINGLE_PREVIEW_PAGE", () => {
-    expect(pages(
+    expect(page(
       undefined,
       {
         type: types.SINGLE_PREVIEW_PAGE
@@ -346,7 +346,7 @@ describe("pages reducer", () => {
       sub: initialStateMainOrSub
     });
 
-    expect(pages(
+    expect(page(
       {
         directory: "",
         files: [],
@@ -367,7 +367,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 2, height: 3 };
       })
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03"],
@@ -398,7 +398,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 2, height: 3 };
       })
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03"],
@@ -427,7 +427,7 @@ describe("pages reducer", () => {
   });
 
   it("should handle DOUBLE_NEXT_PAGE", () => {
-    expect(pages(
+    expect(page(
       undefined,
       {
         type: types.DOUBLE_NEXT_PAGE
@@ -439,7 +439,7 @@ describe("pages reducer", () => {
       sub: initialStateMainOrSub
     });
 
-    expect(pages( {
+    expect(page( {
         directory: "/img",
         files: [],
         main: initialStateMainOrSub,
@@ -455,7 +455,7 @@ describe("pages reducer", () => {
       sub: initialStateMainOrSub
     });
 
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01"],
@@ -486,7 +486,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 2, height: 3 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02"],
@@ -517,7 +517,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 2, height: 3 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02"],
@@ -544,7 +544,7 @@ describe("pages reducer", () => {
       sub: initialStateMainOrSub
     });
 
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02"],
@@ -588,7 +588,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData2, width: 4, height: 5 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03"],
@@ -627,7 +627,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData2, width: 6, height: 5 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03"],
@@ -661,7 +661,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData2, width: 4, height: 5 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -700,7 +700,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData2, width: 6, height: 5 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -731,7 +731,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 4, height: 3 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -762,7 +762,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 4, height: 3 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -796,7 +796,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 4, height: 3 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -830,7 +830,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData2, width: 4, height: 5 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -866,7 +866,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 7, height: 6 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -905,7 +905,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData2, width: 7, height: 8 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -949,7 +949,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData2, width: 9, height: 8 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -985,7 +985,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 7, height: 6 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -1024,7 +1024,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 7, height: 6 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -1063,7 +1063,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData2, width: 7, height: 8 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -1102,7 +1102,7 @@ describe("pages reducer", () => {
   });
 
   it("should handle DOUBLE_PREVIEW_PAGE", () => {
-    expect(pages(
+    expect(page(
       undefined,
       {
         type: types.DOUBLE_PREVIEW_PAGE
@@ -1114,7 +1114,7 @@ describe("pages reducer", () => {
       sub: initialStateMainOrSub
     });
 
-    expect(pages( {
+    expect(page( {
         directory: "/img",
         files: [],
         main: initialStateMainOrSub,
@@ -1130,7 +1130,7 @@ describe("pages reducer", () => {
       sub: initialStateMainOrSub
     });
 
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01"],
@@ -1157,7 +1157,7 @@ describe("pages reducer", () => {
       sub: initialStateMainOrSub
     });
 
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02"],
@@ -1198,7 +1198,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 5, height: 6 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02"],
@@ -1229,7 +1229,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 5, height: 6 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02"],
@@ -1260,7 +1260,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 7, height: 6 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -1294,7 +1294,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData2, width: 7, height: 8 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -1333,7 +1333,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData2, width: 9, height: 8 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -1367,7 +1367,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData2, width: 7, height: 8 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -1406,7 +1406,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData2, width: 9, height: 8 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -1437,7 +1437,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 7, height: 6 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -1471,7 +1471,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData1, width: 9, height: 8 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -1505,7 +1505,7 @@ describe("pages reducer", () => {
       .mockImplementationOnce(f => {
         return { data: otherData2, width: 7, height: 8 };
       });
-    expect(pages(
+    expect(page(
       {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
@@ -1539,7 +1539,7 @@ describe("pages reducer", () => {
   });
 
   it("should handle other action type", () => {
-    expect(() => pages(
+    expect(() => page(
       undefined,
       {
         type: "OTHER"
