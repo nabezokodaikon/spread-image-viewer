@@ -7,24 +7,26 @@
   <script src="js/index.js"></script>
 </head>
 <body>
-  <div id="root" class="root">
-    <header>
-      <div class=toolBox>
-        <button class="toolButton" id="doubleLeftButton"><<</button>
-        <button class="toolButton" id="singleLeftButton"><</button>
-        <button class="toolButton" id="singleRightButton">></button>
-        <button class="toolButton" id="doubleRightButton">>></button>
-        <label><input class="toolRadio" type="radio" />Left</label>
-        <label><input class="toolRadio" type="radio" />Right</label>
-        <button class="toolButton fileOpenButton">Open</button>
+  <div id="root">
+    <div class="app">
+      <div class="header">
+        <div class=toolBox>
+          <button class="toolButton" id="doubleLeftButton"><<</button>
+          <button class="toolButton" id="singleLeftButton"><</button>
+          <button class="toolButton" id="singleRightButton">></button>
+          <button class="toolButton" id="doubleRightButton">>></button>
+          <label><input class="toolRadio" type="radio" />Left</label>
+          <label><input class="toolRadio" type="radio" />Right</label>
+          <button class="toolButton fileOpenButton">Open</button>
+        </div>
       </div>
-      <div class="fileNamesBox">
-        <p class="fileName">img01.jpg</p>
-        <p class="fileName">image02.jpg</p>
+      <div class="contents">
+        <div class="fileNamesBox">
+          <p class="fileName">img01.jpg</p>
+          <p class="fileName">image02.jpg</p>
+        </div>
+        <img class="imageView" id="imageView">
       </div>
-    </header>
-    <div class="contents">
-      <img class="imageView" id="imageView">
     </div>
   </div>
 </body>

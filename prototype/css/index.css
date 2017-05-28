@@ -6,7 +6,12 @@ body {
   font-size: 62.5%;
 }
 
-.root {
+#root {
+  width: 100%;
+  height: 100%;
+} 
+
+.app {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -15,7 +20,7 @@ body {
   background-color: #aaaaaa;
 }
 
-header {
+.header {
   flex: 0;
 
   background-color: #00ff00;
@@ -49,7 +54,13 @@ header {
 }
 
 
-/* File names box */
+/* Contents */
+.contents {
+  flex: 1;
+
+  background-color: #ff0000;
+}
+
 .fileNamesBox {
   z-index: 1;
   position: absolute;
@@ -67,14 +78,6 @@ header {
 
 .fileName {
   margin: 0rem 0.4rem 0rem 0.4rem;
-}
-
-
-/* Contents */
-.contents {
-  flex: 1;
-
-  background-color: #ff0000;
 }
 
 .imageView {
