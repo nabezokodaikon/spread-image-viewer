@@ -24,6 +24,6 @@
     },
   },
   direction: "left",
-  visibilityFileNames: true,
+  visibilityFileName: true,
 }
 ```

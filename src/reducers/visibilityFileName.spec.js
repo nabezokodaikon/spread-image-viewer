@@ -1,22 +1,22 @@
 import * as types from "../constants/ActionTypes";
-import visibilityFileNames from "./visibilityFileNames";
+import visibilityFileName from "./visibilityFileName";
 
-describe("visibilityFileNames reducer", () => {
-  it("should handle SET_VISIBILITY_FILE_NAMES", () => {
-    expect(visibilityFileNames(
+describe("visibilityFileName reducer", () => {
+  it("should handle SET_VISIBILITY_FILE_NAME", () => {
+    expect(visibilityFileName(
       undefined,
       {
-        type: types.SET_VISIBILITY_FILE_NAMES,
+        type: types.SET_VISIBILITY_FILE_NAME,
         visible: true
       }
     )).toEqual(
       true
     );
 
-    expect(visibilityFileNames(
+    expect(visibilityFileName(
       undefined,
       {
-        type: types.SET_VISIBILITY_FILE_NAMES,
+        type: types.SET_VISIBILITY_FILE_NAME,
         visible: false
       }
     )).toEqual(
@@ -25,7 +25,7 @@ describe("visibilityFileNames reducer", () => {
   });
 
   it("should handle other action type", () => {
-    expect(() => visibilityFileNames(
+    expect(() => visibilityFileName(
       undefined,
       {
         type: "OTHER"
