@@ -1,15 +1,13 @@
 "use strict";
 
-import fs from "fs";
-import Canvas from "canvas";
+import { nativeImage } from "electron";
 
 export default {
   getImageData: function(filePath) {
-    const buffer = fs.readFileSync(filePath);
-    const image = new Canvas.Image();
-    image.src = buffer;
+    const image = nativeImage.createFromPath(filePath);
+    const data = image.toDataURL();
     return {
-      data: buffer, // typeof(buffer) === "object"
+      data: data, // typeof(data) === "string"
       width: image.width,
       height: image.height
     };

@@ -4,6 +4,7 @@
   "main": "dest/main.js",
   "description": "Spread image viewer",
   "dependencies": {
+    "canvas": "^1.6.5",
     "immutable": "^3.8.1",
     "log4js": "^1.1.1",
     "prop-types": "^15.5.10",
@@ -26,9 +27,9 @@
   "scripts": {
     "test": "jest",
     "coverage": "jest --coverage",
-    "clean": "rimraf dest && rimraf .yarnclean && rimraf node_modules && yarn",
+    "clean": "rimraf dest",
     "build": "./node_modules/.bin/babel src --out-dir dest --ignore *.spec.js",
-    "debug": "yarn run build && ./node_modules/.bin/electron --js-flags='--harmony-tailcalls' .",
+    "debug": "npm run build && ./node_modules/.bin/electron --js-flags='--harmony-tailcalls' .",
     "start": "./node_modules/.bin/electron --js-flags='--harmony-tailcalls' ."
   },
   "repository": {

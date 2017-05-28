@@ -4,9 +4,30 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="../public/css/index.css">
   <title>Spread image viewer</title>
+  <!--
+  <script>
+    const path = require("path"); 
+    const { nativeImage }  = require("electron");
+    window.addEventListener("load", (e) => {
+      console.log(path.resolve("."));
+      const imageTag = document.getElementById("logo");
+      // const file = path.join(path.resolve("."), "sample-resource/wide-images/wide01.jpg");
+      const file = "sample-resource/wide-images/wide01.jpg";
+      const image = nativeImage.createFromPath(file);
+      console.log(image);
+      console.log(`w: ${image.getSize().width}`);
+      const image2 = image.resize({ width: 100, height: 200 });
+      const data= image2.toDataURL();
+      console.log(typeof(data));
+      const image3 = nativeImage.createFromDataURL(data);
+      imageTag.src = image3.resize({ width: 300, height: 100 }).toDataURL();
+    });
+  </script>
+  -->
 </head>
 <body>
   <div id="root"></div>
   <script src="../dest/index.js"></script>
+  <!-- <img id="logo"> -->
 </body>
 </html>
