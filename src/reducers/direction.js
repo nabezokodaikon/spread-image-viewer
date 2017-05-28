@@ -13,7 +13,7 @@ function direction(state = LEFT_DIRECTION_MODE, action) {
     case SET_DIRECTION_MODE:
       return action.mode;
     default:
-      throw new Error(`Action type "${action.type}" is not define.`);
+      return state;
   }
 }
 

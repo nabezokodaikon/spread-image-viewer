@@ -13,6 +13,12 @@ const initialStateMainOrSub = {
   width: 0,
   height: 0
 };
+const initialState = {
+  directory: "",
+  files: [],
+  main: initialStateMainOrSub,
+  sub: initialStateMainOrSub
+};
 
 describe("page reducer", () => {
   it("should handle OPEN_FILE", () => {
@@ -1538,12 +1544,14 @@ describe("page reducer", () => {
     });
   });
 
-  it("should handle other action type", () => {
-    expect(() => page(
+  it ("should handle other action type", () => {
+    expect(page(
       undefined,
       {
         type: "OTHER"
-      })
-    ).toThrowError("Action type \"OTHER\" is not define.");
+      }
+    )).toEqual(
+      initialState
+    );
   });
 });

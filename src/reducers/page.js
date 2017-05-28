@@ -472,6 +472,6 @@ export default function page(state = initialState, action) {
     case DOUBLE_PREVIEW_PAGE:
       return doublePreviewPage(state);
     default:
-      throw new Error(`Action type "${action.type}" is not define.`);
+      return state;
   }
 }

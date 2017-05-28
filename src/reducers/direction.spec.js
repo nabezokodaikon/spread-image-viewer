@@ -25,12 +25,14 @@ describe("direction reducer", () => {
     );
   });
 
-  it("should handle other action type", () => {
-    expect(() => direction(
+  it ("should handle other action type", () => {
+    expect(direction(
       undefined,
       {
         type: "OTHER"
-      })
-    ).toThrowError("Action type \"OTHER\" is not define.");
+      }
+    )).toEqual(
+      modes.LEFT_DIRECTION_MODE
+    );
   });
 });

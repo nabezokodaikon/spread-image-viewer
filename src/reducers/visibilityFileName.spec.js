@@ -24,12 +24,14 @@ describe("visibilityFileName reducer", () => {
     );
   });
 
-  it("should handle other action type", () => {
-    expect(() => visibilityFileName(
+  it ("should handle other action type", () => {
+    expect(visibilityFileName(
       undefined,
       {
         type: "OTHER"
-      })
-    ).toThrowError("Action type \"OTHER\" is not define.");
+      }
+    )).toEqual(
+      false
+    );
   });
 });

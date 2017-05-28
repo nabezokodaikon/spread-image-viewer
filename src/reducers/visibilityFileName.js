@@ -9,7 +9,7 @@ function visibilityFileName(state = false, action) {
     case SET_VISIBILITY_FILE_NAME:
       return action.visible;
     default:
-      throw new Error(`Action type "${action.type}" is not define.`);
+      return state;
   }
 }
 
