@@ -6,10 +6,11 @@ export default {
   getImageData: function(filePath) {
     const image = nativeImage.createFromPath(filePath);
     const data = image.toDataURL();
+    const size = image.getSize();
     return {
       data: data, // typeof(data) === "string"
-      width: image.width,
-      height: image.height
+      width: size.width,
+      height: size.height
     };
   }
 }
