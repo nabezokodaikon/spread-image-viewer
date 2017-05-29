@@ -244,6 +244,109 @@ function singleNextPage(state) {
 }
 
 function singlePreviewPage(state) {
+  if (state.files.length < 1) {
+    return state;
+  }
+
+  if (state.files.length == 1) {
+    return state;
+  }
+  
+  if (state.files.length == 2) {
+    if (state.sub.file != "") {
+      return state;
+    }
+
+    const currentIndex = state.files.indexOf(state.main.file);
+    const nextIndex = currentIndex - 1;
+    if (nextIndex > -1) {
+      const nextMainFile = state.files[nextIndex];
+      const nextMainFilePath = path.join(state.directory, nextMainFile);
+      const nextMainData = ImageUtil.getImageData(nextMainFilePath);
+      return {
+        directory: state.directory,
+        files: state.files,
+        main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
+        sub: initialStateMainOrSub
+      };
+    }
+
+    const nextMainFile = state.files[state.files.length - 1];
+    const nextMainFilePath = path.join(state.directory, nextMainFile);
+    const nextMainData = ImageUtil.getImageData(nextMainFilePath);
+    return {
+      directory: state.directory,
+      files: state.files,
+      main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
+      sub: initialStateMainOrSub
+    };
+  }
+
+  const currentIndex = state.files.indexOf(state.main.file);
+  const nextIndex= currentIndex - 1;
+  if (nextIndex > -1) {
+    const nextMainFile = state.files[nextIndex];
+    const nextMainFilePath = path.join(state.directory, nextMainFile);
+    const nextMainData = ImageUtil.getImageData(nextMainFilePath);
+    if (nextMainData.width >= nextMainData.height) {
+      return {
+        directory: state.directory,
+        files: state.files,
+        main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
+        sub: initialStateMainOrSub
+      };
+    }
+
+    const nextSubFile = state.files[currentIndex];
+    const nextSubFilePath = path.join(state.directory, nextSubFile);
+    const nextSubData = ImageUtil.getImageData(nextSubFilePath);
+    if (nextSubData.height > nextSubData.width) {
+      return {
+        directory: state.directory,
+        files: state.files,
+        main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
+        sub: { file: nextSubFile, data: nextSubData.data, width: nextSubData.width, height: nextSubData.height }
+      };
+    }
+    
+    return {
+      directory: state.directory,
+      files: state.files,
+      main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
+      sub: initialStateMainOrSub
+    };
+  }
+
+  const nextMainFile = state.files[state.files.length - 1];
+  const nextMainFilePath = path.join(state.directory, nextMainFile);
+  const nextMainData = ImageUtil.getImageData(nextMainFilePath);
+  if (nextMainData.width >= nextMainData.height) {
+    return {
+      directory: state.directory,
+      files: state.files,
+      main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
+      sub: initialStateMainOrSub
+    };
+  }
+
+  const nextSubFile = state.files[currentIndex];
+  const nextSubFilePath = path.join(state.directory, nextSubFile);
+  const nextSubData = ImageUtil.getImageData(nextSubFilePath);
+  if (nextSubData.width >= nextSubData.height) {
+    return {
+      directory: state.directory,
+      files: state.files,
+      main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
+      sub: initialStateMainOrSub
+    };
+  }
+
+  return {
+    directory: state.directory,
+    files: state.files,
+    main: { file: nextMainFile, data: nextMainData.data, width: nextMainData.width, height: nextMainData.height },
+    sub: { file: nextSubFile, data: nextSubData.data, width: nextSubData.width, height: nextSubData.height }
+  };
 }
 
 function doubleNextPage(state) {
