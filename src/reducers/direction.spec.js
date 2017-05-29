@@ -32,7 +32,7 @@ describe("direction reducer", () => {
         type: "OTHER"
       }
     )).toEqual(
-      modes.LEFT_DIRECTION_MODE
+      modes.RIGHT_DIRECTION_MODE
     );
   });
 });
