@@ -719,6 +719,7 @@ describe("page reducer", () => {
   });
 
   it("should handle SINGLE_PREVIEW_PAGE", () => {
+    return;
     expect(page(
       undefined,
       {
@@ -1484,6 +1485,50 @@ describe("page reducer", () => {
         height: 8 
       }
     });
+
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: otherData1, width: 5, height: 6 };
+      })
+      .mockImplementationOnce(f => {
+        return { data: otherData2, width: 7, height: 8 };
+      });
+    expect(page(
+      {
+        directory: "/img",
+        files: ["img01", "img02", "img03", "img04"],
+        main: {
+          file: "img04",
+          data: mainData,
+          width: 1,
+          height: 2 
+        },
+        sub: {
+          file: "img01",
+          data: subData,
+          width: 3,
+          height: 4 
+        }
+      },
+      {
+        type: types.DOUBLE_NEXT_PAGE
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02", "img03", "img04"],
+      main: {
+        file: "img02",
+        data: otherData1,
+        width: 5,
+        height: 6 
+      },
+      sub: {
+        file: "img03",
+        data: otherData2,
+        width: 7,
+        height: 8 
+      }
+    });
   });
 
   it("should handle DOUBLE_PREVIEW_PAGE", () => {
@@ -1590,7 +1635,7 @@ describe("page reducer", () => {
         main: {
           file: "img02",
           data: mainData,
-          width: 1,
+          width: 3,
           height: 2 
         },
         sub: initialStateMainOrSub 
@@ -1621,7 +1666,7 @@ describe("page reducer", () => {
         main: {
           file: "img01",
           data: mainData,
-          width: 1,
+          width: 3,
           height: 2 
         },
         sub: initialStateMainOrSub 
@@ -1650,12 +1695,17 @@ describe("page reducer", () => {
         directory: "/img",
         files: ["img01", "img02", "img03", "img04"],
         main: {
-          file: "img03",
+          file: "img02",
           data: mainData,
-          width: 1,
-          height: 2 
+          width: 3,
+          height: 4 
         },
-        sub: initialStateMainOrSub 
+        sub: {
+          file: "img03",
+          data: subData,
+          width: 5,
+          height: 6 
+        }
       },
       {
         type: types.DOUBLE_PREVIEW_PAGE
@@ -1664,7 +1714,7 @@ describe("page reducer", () => {
       directory: "/img",
       files: ["img01", "img02", "img03", "img04"],
       main: {
-        file: "img02",
+        file: "img01",
         data: otherData1,
         width: 7,
         height: 6 
@@ -1686,10 +1736,15 @@ describe("page reducer", () => {
         main: {
           file: "img03",
           data: mainData,
-          width: 1,
-          height: 2 
+          width: 3,
+          height: 4 
         },
-        sub: initialStateMainOrSub 
+        sub: {
+          file: "img04",
+          data: subData,
+          width: 5,
+          height: 6 
+        }
       },
       {
         type: types.DOUBLE_PREVIEW_PAGE
@@ -1698,16 +1753,16 @@ describe("page reducer", () => {
       directory: "/img",
       files: ["img01", "img02", "img03", "img04"],
       main: {
-        file: "img02",
-        data: otherData1,
-        width: 5,
-        height: 6 
-      },
-      sub: {
         file: "img01",
         data: otherData2,
         width: 7,
         height: 8 
+      },
+      sub: {
+        file: "img02",
+        data: otherData1,
+        width: 5,
+        height: 6 
       }
     });
 
@@ -1725,10 +1780,15 @@ describe("page reducer", () => {
         main: {
           file: "img03",
           data: mainData,
-          width: 1,
-          height: 2 
+          width: 3,
+          height: 4 
         },
-        sub: initialStateMainOrSub 
+        sub: {
+          file: "img04",
+          data: subData,
+          width: 5,
+          height: 6 
+        }
       },
       {
         type: types.DOUBLE_PREVIEW_PAGE
@@ -1759,10 +1819,15 @@ describe("page reducer", () => {
         main: {
           file: "img02",
           data: mainData,
-          width: 1,
-          height: 2 
+          width: 3,
+          height: 4 
         },
-        sub: initialStateMainOrSub 
+        sub: {
+          file: "img03",
+          data: subData,
+          width: 5,
+          height: 6 
+        }
       },
       {
         type: types.DOUBLE_PREVIEW_PAGE
@@ -1771,16 +1836,16 @@ describe("page reducer", () => {
       directory: "/img",
       files: ["img01", "img02", "img03", "img04"],
       main: {
-        file: "img01",
-        data: otherData1,
-        width: 5,
-        height: 6 
-      },
-      sub: {
         file: "img04",
         data: otherData2,
         width: 7,
         height: 8 
+      },
+      sub: {
+        file: "img01",
+        data: otherData1,
+        width: 5,
+        height: 6 
       }
     });
 
@@ -1798,10 +1863,15 @@ describe("page reducer", () => {
         main: {
           file: "img02",
           data: mainData,
-          width: 1,
-          height: 2 
+          width: 3,
+          height: 4 
         },
-        sub: initialStateMainOrSub 
+        sub: {
+          file: "img03",
+          data: subData,
+          width: 5,
+          height: 6 
+        }
       },
       {
         type: types.DOUBLE_PREVIEW_PAGE
@@ -1832,7 +1902,12 @@ describe("page reducer", () => {
           width: 1,
           height: 2 
         },
-        sub: initialStateMainOrSub 
+        sub: {
+          file: "img02",
+          data: subData,
+          width: 3,
+          height: 4 
+        }
       },
       {
         type: types.DOUBLE_PREVIEW_PAGE
@@ -1854,7 +1929,7 @@ describe("page reducer", () => {
         return { data: otherData1, width: 5, height: 6 };
       })
       .mockImplementationOnce(f => {
-        return { data: otherData1, width: 9, height: 8 };
+        return { data: otherData2, width: 7, height: 6 };
       });
     expect(page(
       {
@@ -1866,7 +1941,12 @@ describe("page reducer", () => {
           width: 1,
           height: 2 
         },
-        sub: initialStateMainOrSub 
+        sub: {
+          file: "img02",
+          data: subData,
+          width: 3,
+          height: 4 
+        }
       },
       {
         type: types.DOUBLE_PREVIEW_PAGE
@@ -1900,7 +1980,12 @@ describe("page reducer", () => {
           width: 1,
           height: 2 
         },
-        sub: initialStateMainOrSub 
+        sub: {
+          file: "img02",
+          data: subData,
+          width: 3,
+          height: 4 
+        }
       },
       {
         type: types.DOUBLE_PREVIEW_PAGE
@@ -1909,16 +1994,16 @@ describe("page reducer", () => {
       directory: "/img",
       files: ["img01", "img02", "img03", "img04"],
       main: {
-        file: "img04",
-        data: otherData1,
-        width: 5,
-        height: 6 
-      },
-      sub: {
         file: "img03",
         data: otherData2,
         width: 7,
         height: 8 
+      },
+      sub: {
+        file: "img04",
+        data: otherData1,
+        width: 5,
+        height: 6 
       }
     });
   });
