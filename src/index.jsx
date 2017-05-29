@@ -6,6 +6,8 @@ import { Provider } from "react-redux";
 import { createStore } from "redux";
 import rootReducer from "./reducers/rootReducer.js";
 
+import MoveBoxContainer from "./containers/MoveBoxContainer"
+
 const enhancers = 
   window.__REDUX_DEVTOOLS_EXTENSION__ && 
   window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -16,6 +18,7 @@ const store = createStore(
 
 render(
   <Provider store={store}>
+    <MoveBoxContainer />
   </Provider>,
   document.getElementById("root")
 );
