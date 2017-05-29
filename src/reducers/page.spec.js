@@ -56,7 +56,7 @@ describe("page reducer", () => {
       .mockImplementationOnce(f => ["img01"]);
     ImageUtil.getImageData = jest.fn()
       .mockImplementationOnce(f => {
-        return { data: mainData, width: 1, height: 2 };
+        return { data: mainData, width: 3, height: 2 };
       });
     expect(page(
       undefined,
@@ -70,7 +70,7 @@ describe("page reducer", () => {
       main: {
         file: "img01",
         data: mainData,
-        width: 1,
+        width: 3,
         height: 2 
       },
       sub: initialStateMainOrSub
@@ -80,7 +80,7 @@ describe("page reducer", () => {
       .mockImplementationOnce(f => ["img01", "img02"]);
     ImageUtil.getImageData = jest.fn()
       .mockImplementationOnce(f => {
-        return { data: mainData, width: 2, height: 2 };
+        return { data: mainData, width: 3, height: 2 };
       })
       .mockImplementationOnce(f => {
         return { data: subData, width: 1, height: 2 };
@@ -97,7 +97,7 @@ describe("page reducer", () => {
       main: {
         file: "img01",
         data: mainData,
-        width: 2,
+        width: 3,
         height: 2 
       },
       sub: initialStateMainOrSub
@@ -107,10 +107,10 @@ describe("page reducer", () => {
       .mockImplementationOnce(f => ["img01", "img02"]);
     ImageUtil.getImageData = jest.fn()
       .mockImplementationOnce(f => {
-        return { data: mainData, width: 2, height: 2 };
+        return { data: mainData, width: 1, height: 2 };
       })
       .mockImplementationOnce(f => {
-        return { data: subData, width: 2, height: 2 };
+        return { data: subData, width: 3, height: 4 };
       });
     expect(page(
       undefined,
@@ -124,14 +124,14 @@ describe("page reducer", () => {
       main: {
         file: "img01",
         data: mainData,
-        width: 2,
+        width: 1,
         height: 2 
       },
       sub: {
         file: "img02",
         data: subData,
-        width: 2,
-        height: 2 
+        width: 3,
+        height: 4 
       }
     });
 
@@ -139,24 +139,24 @@ describe("page reducer", () => {
       .mockImplementationOnce(f => ["img01", "img02", "img03"]);
     ImageUtil.getImageData = jest.fn()
       .mockImplementationOnce(f => {
-        return { data: mainData, width: 2, height: 2 };
+        return { data: mainData, width: 1, height: 2 };
       })
       .mockImplementationOnce(f => {
-        return { data: subData, width: 1, height: 2 };
+        return { data: subData, width: 5, height: 4 };
       });
     expect(page(
       undefined,
       {
         type: types.OPEN_FILE,
-        filePath: "/img/img03"
+        filePath: "/img/img01"
       })
     ).toEqual({
       directory: "/img",
       files: ["img01", "img02", "img03"],
       main: {
-        file: "img03",
+        file: "img01",
         data: mainData,
-        width: 2,
+        width: 1,
         height: 2 
       },
       sub: initialStateMainOrSub
@@ -166,10 +166,10 @@ describe("page reducer", () => {
       .mockImplementationOnce(f => ["img01", "img02", "img03"]);
     ImageUtil.getImageData = jest.fn()
       .mockImplementationOnce(f => {
-        return { data: mainData, width: 2, height: 2 };
+        return { data: mainData, width: 1, height: 2 };
       })
       .mockImplementationOnce(f => {
-        return { data: subData, width: 2, height: 2 };
+        return { data: subData, width: 3, height: 2 };
       });
     expect(page(
       undefined,
@@ -183,14 +183,41 @@ describe("page reducer", () => {
       main: {
         file: "img03",
         data: mainData,
-        width: 2,
+        width: 1,
+        height: 2 
+      },
+      sub: initialStateMainOrSub
+    });
+
+    FileUtil.getImageFiles = jest.fn()
+      .mockImplementationOnce(f => ["img01", "img02", "img03"]);
+    ImageUtil.getImageData = jest.fn()
+      .mockImplementationOnce(f => {
+        return { data: mainData, width: 1, height: 2 };
+      })
+      .mockImplementationOnce(f => {
+        return { data: subData, width: 3, height: 4 };
+      });
+    expect(page(
+      undefined,
+      {
+        type: types.OPEN_FILE,
+        filePath: "/img/img03"
+      })
+    ).toEqual({
+      directory: "/img",
+      files: ["img01", "img02", "img03"],
+      main: {
+        file: "img03",
+        data: mainData,
+        width: 1,
         height: 2 
       },
       sub: {
         file: "img01",
         data: subData,
-        width: 2,
-        height: 2 
+        width: 3,
+        height: 4 
       }
     });
   });

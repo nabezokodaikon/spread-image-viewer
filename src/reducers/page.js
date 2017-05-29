@@ -42,16 +42,11 @@ function openFile(state, mainFilePath) {
   const mainOnlyState = {
     directory: directory,
     files: files,
-    main: {
-      file: mainFile,
-      data: mainData.data,
-      width: mainData.width,
-      height: mainData.height
-    },
+    main: { file: mainFile, data: mainData.data, width: mainData.width, height: mainData.height },
     sub: initialStateMainOrSub
   };
 
-  if (mainData.height > mainData.width) {
+  if (mainData.width >= mainData.height) {
     return mainOnlyState;
   }
 
@@ -61,48 +56,28 @@ function openFile(state, mainFilePath) {
     const subFilePath = path.join(directory, subFile);
     const subData = ImageUtil.getImageData(subFilePath);
     if (subData.height > subData.width) {
-      return mainOnlyState;
-    } else {
       return {
         directory: directory,
         files: files,
-        main: {
-          file: mainFile,
-          data: mainData.data,
-          width: mainData.width,
-          height: mainData.height
-        },
-        sub: {
-          file: subFile,
-          data: subData.data,
-          width: subData.width,
-          height: subData.height 
-        }
+        main: { file: mainFile, data: mainData.data, width: mainData.width, height: mainData.height },
+        sub: { file: subFile, data: subData.data, width: subData.width, height: subData.height }
       };
+    } else {
+      return mainOnlyState;
     }
   } else {
     const subFile = files[0];
     const subFilePath = path.join(directory, subFile);
     const subData = ImageUtil.getImageData(subFilePath);
     if (subData.height > subData.width) {
-      return mainOnlyState;
-    } else {
       return {
         directory: directory,
         files: files,
-        main: {
-          file: mainFile,
-          data: mainData.data,
-          width: mainData.width,
-          height: mainData.height
-        },
-        sub: {
-          file: subFile,
-          data: subData.data,
-          width: subData.width,
-          height: subData.height 
-        }
+        main: { file: mainFile, data: mainData.data, width: mainData.width, height: mainData.height },
+        sub: { file: subFile, data: subData.data, width: subData.width, height: subData.height }
       };
+    } else {
+      return mainOnlyState;
     }
   }
 }
