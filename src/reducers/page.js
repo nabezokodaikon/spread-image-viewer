@@ -460,6 +460,7 @@ function doublePreviewPage(state) {
 export default function page(state = initialState, action) {
   switch (action.type) {
     case OPEN_FILE:
+      console.log(`OPEN_FILE: ${action.filePath}`);
       return openFile(state, action.filePath);
     case REDRAW_PAGE:
       return redrawPage(state);
