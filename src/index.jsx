@@ -8,6 +8,7 @@ import rootReducer from "./reducers/rootReducer.js";
 import MoveBoxContainer from "./containers/MoveBoxContainer";
 import DirectionBoxContainer from "./containers/DirectionBoxContainer";
 import FileOpenBoxContainer from "./containers/FileOpenBoxContainer";
+import FileNameBoxContainer from "./containers/FileNameBoxContainer";
 
 const enhancers = 
   window.__REDUX_DEVTOOLS_EXTENSION__ && 
@@ -23,6 +24,7 @@ render(
       <MoveBoxContainer />
       <DirectionBoxContainer />
       <FileOpenBoxContainer />
+      <FileNameBoxContainer />
     </div>
   </Provider>,
   document.getElementById("root")

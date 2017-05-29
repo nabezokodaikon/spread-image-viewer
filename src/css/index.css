@@ -61,7 +61,7 @@ body {
   background-color: #ff0000;
 }
 
-.fileNamesBox {
+.fileNameBox {
   z-index: 1;
   position: absolute;
   top: 3rem;
