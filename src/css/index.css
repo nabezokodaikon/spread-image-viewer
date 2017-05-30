@@ -1,15 +1,25 @@
+@font-face {
+  font-family: '名前';
+  src: url('https://fonts.googleapis.com/css?family=Open+Sans') format('woff2');
+}
+
 html,
 body {
   width: 100%;
   height: 100%;
   margin: 0rem;
   font-size: 62.5%;
+  font-family: 'Open Sans', sans-serif;
 }
 
 #root {
   width: 100%;
   height: 100%;
 } 
+
+.label {
+  font-size: 12px;
+}
 
 .app {
   display: flex;

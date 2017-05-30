@@ -32,7 +32,7 @@ class DirectionBox extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="label">
         <label>
           <input 
             className="toolRadio"
@@ -41,7 +41,7 @@ class DirectionBox extends React.Component {
             onClick={ this.handleToLeftButtonClick }
             onChange={ () => {} }
           />
-          To left
+          To Left
         </label>
         <label>
           <input 

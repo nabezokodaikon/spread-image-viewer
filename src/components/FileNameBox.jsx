@@ -43,7 +43,7 @@ class FileNameBox extends React.Component {
   render() {
     return (
       <div
-        className="fileNameBox"
+        className="fileNameBox label"
         style={
           {
             visibility: this.props.visibility && !this.isEmpty() ?

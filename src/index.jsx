@@ -21,12 +21,18 @@ const store = createStore(
 
 render(
   <Provider store={store}>
-    <div>
-      <MoveBoxContainer />
-      <DirectionBoxContainer />
-      <FileOpenBoxContainer />
-      <FileNameBoxContainer />
-      <ImageViewContainer />
+    <div className="app">
+      <div className="header">
+        <div className="toolBox">
+          <MoveBoxContainer />
+          <DirectionBoxContainer />
+          <FileOpenBoxContainer />
+        </div>
+      </div>
+      <div className="contents">
+        <FileNameBoxContainer />
+        <ImageViewContainer />
+      </div>
     </div>
   </Provider>,
   document.getElementById("root")
