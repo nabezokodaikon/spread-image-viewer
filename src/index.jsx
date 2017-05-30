@@ -5,9 +5,7 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import rootReducer from "./reducers/rootReducer.js";
-import MoveBoxContainer from "./containers/MoveBoxContainer";
-import DirectionBoxContainer from "./containers/DirectionBoxContainer";
-import FileOpenBoxContainer from "./containers/FileOpenBoxContainer";
+import ToolBarContainer from "./containers/ToolBarContainer";
 import FileNameBoxContainer from "./containers/FileNameBoxContainer";
 import ImageViewContainer from "./containers/ImageViewContainer";
 
@@ -23,11 +21,7 @@ render(
   <Provider store={store}>
     <div className="app">
       <div className="header">
-        <div className="toolBox">
-          <MoveBoxContainer />
-          <DirectionBoxContainer />
-          <FileOpenBoxContainer />
-        </div>
+        <ToolBarContainer />
       </div>
       <div className="contents">
         <FileNameBoxContainer />

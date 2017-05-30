@@ -37,8 +37,8 @@ body {
 }
 
 
-/* Tool box */
-.toolBox {
+/* Tool bar */
+.toolBar {
   flex-grow: 1;
   display: flex;
   border-style: solid;
