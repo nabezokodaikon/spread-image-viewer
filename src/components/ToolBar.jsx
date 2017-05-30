@@ -14,7 +14,6 @@ class ToolBar extends React.Component {
   }
 
   handleMouseOver() {
-    console.log("over");
     this.props.onMouseOver(false);
   }
 

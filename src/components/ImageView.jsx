@@ -11,7 +11,6 @@ class ImageView extends React.Component {
   }
 
   handleMouseOver() {
-    console.log("over");
     this.props.onMouseOver(true);
   }
 
