@@ -24,21 +24,23 @@ class ImageView extends React.Component {
     if (this.props.main.file == "") {
       return;
     }
+
+    if (this.ctx == null) {
+      this.ctx = this.canvas.getContext('2d');
+    }
     
     if (this.props.sub.file == "") {
-      const ctx = this.canvas.getContext('2d');
       const img = new Image();
       img.onload = () => {
         const destRectangle = ImageUtil.getSingleDrawRectangle(
           { width: this.props.main.width, height: this.props.main.height },
           { x: 0, y: 0, width: this.canvas.width, height: this.canvas.height });
-        ctx.drawImage(img,
+        this.ctx.drawImage(img,
           0, 0, this.props.main.width, this.props.main.height,
           destRectangle.x, destRectangle.y, destRectangle.width, destRectangle.height);
       };
       img.src = this.props.main.data;
     } else {
-      const ctx = this.canvas.getContext('2d');
       const imgs = this.props.direction == LEFT_DIRECTION_MODE ?
         { left: this.props.main, right: this.props.sub } :
         { left: this.props.sub, right: this.props.main };
@@ -48,7 +50,7 @@ class ImageView extends React.Component {
         const destRectangle = ImageUtil.getLeftDrawRectangle(
           { width: imgs.left.width, height: imgs.left.height },
           { x: 0, y: 0, width: this.canvas.width / 2, height: this.canvas.height });
-        ctx.drawImage(imgLeft,
+        this.ctx.drawImage(imgLeft,
           0, 0, imgs.left.width, imgs.left.height,
           destRectangle.x, destRectangle.y, destRectangle.width, destRectangle.height);
       };
@@ -59,7 +61,7 @@ class ImageView extends React.Component {
         const destRectangle = ImageUtil.getRightDrawRectangle(
           { width: imgs.right.width, height: imgs.right.height },
           { x: this.canvas.width / 2, y: 0, width: this.canvas.width / 2, height: this.canvas.height });
-        ctx.drawImage(imgRight,
+        this.ctx.drawImage(imgRight,
           0, 0, imgs.right.width, imgs.right.height,
           destRectangle.x, destRectangle.y, destRectangle.width, destRectangle.height);
       };
