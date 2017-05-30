@@ -8,6 +8,14 @@ class FileNameBox extends React.Component {
     super(props);
   }
 
+  isEmpty() {
+    if (this.props.directory != "") {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   getDirectory() {
     if (this.props.directory != "") {
       return <p className="fileName">{ this.props.directory }</p>;
@@ -36,6 +44,13 @@ class FileNameBox extends React.Component {
     return (
       <div
         className="fileNameBox"
+        style={
+          {
+            visibility: this.props.visibility && !this.isEmpty() ?
+              "visible" :
+              "hidden" 
+          }
+        }
       >
         { this.getDirectory() }
         { this.getMainFile() }
