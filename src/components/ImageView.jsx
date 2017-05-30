@@ -74,26 +74,22 @@ class ImageView extends React.Component {
   }
 
   handleResize(e) {
-    // console.log(`resize{ w: ${this.div.clientWidth}, h: ${ this.div.clientHeight } }`);
     this.canvas.width = this.div.clientWidth;
     this.canvas.height = this.div.clientHeight - this.getToolBarHeight();
     this.drawImage();
   }
 
   componentDidMount() {
-    console.log("componentDidMount");
     window.addEventListener("resize", this.handleResize);
   }
 
   componentDidUpdate() {
-    console.log("componentDidUpdate");
     this.canvas.width = this.div.clientWidth;
     this.canvas.height = this.div.clientHeight - this.getToolBarHeight();
     this.drawImage();
   }
 
   componentWillUnmount() {
-    console.log("componentWillUnmount");
     window.removeEventListener("resize", this.handleResize);
   }
 
