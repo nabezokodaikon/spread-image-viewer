@@ -1,7 +1,7 @@
 node_modules
 tags
 dest
-*.log
+logs
 .yarnclean
 .DS_Store
 sample-resource
