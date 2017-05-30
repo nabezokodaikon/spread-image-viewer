@@ -40,17 +40,19 @@ class FileNameBox extends React.Component {
     }
   }
 
+  getVisiblityStyle() {
+    return {
+      visibility: this.props.visibility && !this.isEmpty() ?
+        "visible" :
+        "hidden" 
+    }
+  }
+
   render() {
     return (
       <div
         className="fileNameBox label"
-        style={
-          {
-            visibility: this.props.visibility && !this.isEmpty() ?
-              "visible" :
-              "hidden" 
-          }
-        }
+        style={this.getVisiblityStyle()}
       >
         { this.getDirectory() }
         { this.getMainFile() }
