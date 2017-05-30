@@ -26,16 +26,12 @@ body {
   flex-direction: column;
   width: 100%;
   height: 100%;
-
-  background-color: #aaaaaa;
 }
 
 .header {
   top: 0;
   width: 100%;
   height: 32px;
-
-  background-color: #00ff00;
 }
 
 
@@ -75,8 +71,6 @@ body {
   bottom: 0;
   width: 100%;
   height: 100%;
-
-  background-color: #ff0000;
 }
 
 .fileNameBox {
@@ -99,6 +93,4 @@ body {
 .imageView {
   width: 100%;
   height: 100%;
-
-  background-color: #0000ff;
 }

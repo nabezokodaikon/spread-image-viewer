@@ -3,6 +3,11 @@
 import { remote } from "electron";
 import React from "react";
 import PropTypes from "prop-types";
+import ImageUtil from "../utils/ImageUtil";
+import {
+  LEFT_DIRECTION_MODE,
+  RIGHT_DIRECTION_MODE
+} from "../constants/DirectionModes";
 
 class ImageView extends React.Component {
   constructor(props) {
@@ -11,26 +16,78 @@ class ImageView extends React.Component {
     this.handleResize = this.handleResize.bind(this);
   }
 
+  getToolBarHeight() {
+    return 32;
+  }
+
+  drawImage() {
+    if (this.props.main.file == "") {
+      return;
+    }
+    
+    if (this.props.sub.file == "") {
+      const ctx = this.canvas.getContext('2d');
+      const img = new Image();
+      img.onload = () => {
+        const destRectangle = ImageUtil.getSingleDrawRectangle(
+          { width: this.props.main.width, height: this.props.main.height },
+          { x: 0, y: 0, width: this.canvas.width, height: this.canvas.height });
+        ctx.drawImage(img,
+          0, 0, this.props.main.width, this.props.main.height,
+          destRectangle.x, destRectangle.y, destRectangle.width, destRectangle.height);
+      };
+      img.src = this.props.main.data;
+    } else {
+      const ctx = this.canvas.getContext('2d');
+      const imgs = this.props.direction == LEFT_DIRECTION_MODE ?
+        { left: this.props.main, right: this.props.sub } :
+        { left: this.props.sub, right: this.props.main };
+
+      const imgLeft = new Image();
+      imgLeft.onload = () => {
+        const destRectangle = ImageUtil.getLeftDrawRectangle(
+          { width: imgs.left.width, height: imgs.left.height },
+          { x: 0, y: 0, width: this.canvas.width / 2, height: this.canvas.height });
+        ctx.drawImage(imgLeft,
+          0, 0, imgs.left.width, imgs.left.height,
+          destRectangle.x, destRectangle.y, destRectangle.width, destRectangle.height);
+      };
+      imgLeft.src = imgs.left.data;
+
+      const imgRight = new Image();
+      imgRight.onload = () => {
+        const destRectangle = ImageUtil.getRightDrawRectangle(
+          { width: imgs.right.width, height: imgs.right.height },
+          { x: this.canvas.width / 2, y: 0, width: this.canvas.width / 2, height: this.canvas.height });
+        ctx.drawImage(imgRight,
+          0, 0, imgs.right.width, imgs.right.height,
+          destRectangle.x, destRectangle.y, destRectangle.width, destRectangle.height);
+      };
+      imgRight.src = imgs.right.data;
+    }
+  }
+
   handleMouseOver() {
     this.props.onMouseOver(true);
   }
 
   handleResize(e) {
-    console.log(`resize{ w: ${this.div.clientWidth}, h: ${ this.div.clientHeight } }`);
-    const toolBarHeight = 32;
+    // console.log(`resize{ w: ${this.div.clientWidth}, h: ${ this.div.clientHeight } }`);
     this.canvas.width = this.div.clientWidth;
-    this.canvas.height = this.div.clientHeight - toolBarHeight;
-    const w = this.canvas.width * 0.8;
-    const h = this.canvas.height * 0.8;
-    const x = (this.canvas.width - w) / 2; 
-    const y = (this.canvas.height - h) / 2; 
-    const ctx = this.canvas.getContext('2d');
-    ctx.fillRect(x, y, w, h);
+    this.canvas.height = this.div.clientHeight - this.getToolBarHeight();
+    this.drawImage();
   }
 
   componentDidMount() {
     console.log("componentDidMount");
     window.addEventListener("resize", this.handleResize);
+  }
+
+  componentDidUpdate() {
+    console.log("componentDidUpdate");
+    this.canvas.width = this.div.clientWidth;
+    this.canvas.height = this.div.clientHeight - this.getToolBarHeight();
+    this.drawImage();
   }
 
   componentWillUnmount() {
