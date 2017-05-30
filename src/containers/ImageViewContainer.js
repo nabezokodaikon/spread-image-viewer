@@ -8,6 +8,9 @@ import ImageView from "../components/ImageView";
 
 const mapStateToProps = (state) => {
   return {
+    main: state.page.main,
+    sub: state.page.sub,
+    direction: state.direction
   };
 }
 
