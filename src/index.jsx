@@ -9,6 +9,7 @@ import MoveBoxContainer from "./containers/MoveBoxContainer";
 import DirectionBoxContainer from "./containers/DirectionBoxContainer";
 import FileOpenBoxContainer from "./containers/FileOpenBoxContainer";
 import FileNameBoxContainer from "./containers/FileNameBoxContainer";
+import ImageViewContainer from "./containers/ImageViewContainer";
 
 const enhancers = 
   window.__REDUX_DEVTOOLS_EXTENSION__ && 
@@ -25,6 +26,7 @@ render(
       <DirectionBoxContainer />
       <FileOpenBoxContainer />
       <FileNameBoxContainer />
+      <ImageViewContainer />
     </div>
   </Provider>,
   document.getElementById("root")
