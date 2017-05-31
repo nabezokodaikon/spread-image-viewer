@@ -37,7 +37,7 @@
     "build": "./node_modules/.bin/babel src --out-dir dest --ignore *.spec.js && cpx src/app-config.json dest && cpx 'src/**/*.{html,css}' dest",
     "debug": "yarn run build && yarn run start",
     "start": "./node_modules/.bin/electron --js-flags='--harmony-tailcalls' .",
-    "package": "yarn run build && cpx package/app-config.json dest && ./node_modules/.bin/electron-packager . SpreadImageViewe --platform=darwin --arch=x64 --out=./package --overwrite --ignore=\".DS_Store|.gitignore|LICENSE|README.md|coverage|doc|logs|prototype|sample-resource|src|tags|yarn.lock\""
+    "package": "yarn run build && cpx publish/app-config.json dest && ./node_modules/.bin/electron-packager . SpreadImageViewe --platform=darwin --arch=x64 --out=publish --overwrite --ignore=\".DS_Store|.gitignore|LICENSE|README.md|coverage|doc|logs|prototype|sample-resource|src|tags|yarn.lock\""
   },
   "repository": {
     "type": "git",
