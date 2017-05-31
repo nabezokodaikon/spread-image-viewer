@@ -1,9 +1,9 @@
 "use strict";
 
-import installExtension, {
-  REACT_DEVELOPER_TOOLS,
-  REDUX_DEVTOOLS
-} from "electron-devtools-installer";
+// import installExtension, {
+  // REACT_DEVELOPER_TOOLS,
+  // REDUX_DEVTOOLS
+// } from "electron-devtools-installer";
 import { app, BrowserWindow } from "electron";
 import path from "path";
 import url from "url";
@@ -22,11 +22,10 @@ function isMac() {
 function createWindow() {
   win = new BrowserWindow({ width: 1024, height: 960 });
 
-  installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS])
-    .then(name => log.debug(`Added Extension: ${name}`))
-    .catch(err => log.error("An error occurred: ", err));
-
-  win.webContents.openDevTools();
+  // installExtension([REACT_DEVELOPER_TOOLS, REDUX_DEVTOOLS])
+    // .then(name => log.debug(`Added Extension: ${name}`))
+    // .catch(err => log.error("An error occurred: ", err));
+  // win.webContents.openDevTools();
 
   win.loadURL(url.format({
     pathname: path.join(__dirname, "index.html"),

@@ -7,3 +7,5 @@ logs
 sample-resource
 temp.js
 coverage
+package/*
+!package/app-config.json

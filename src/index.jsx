@@ -9,12 +9,15 @@ import ToolBarContainer from "./containers/ToolBarContainer";
 import FileNameBoxContainer from "./containers/FileNameBoxContainer";
 import ImageViewContainer from "./containers/ImageViewContainer";
 
-const enhancers = 
-  window.__REDUX_DEVTOOLS_EXTENSION__ && 
-  window.__REDUX_DEVTOOLS_EXTENSION__()
+// const enhancers = 
+  // window.__REDUX_DEVTOOLS_EXTENSION__ && 
+  // window.__REDUX_DEVTOOLS_EXTENSION__()
+// const store = createStore(
+  // rootReducer,
+  // enhancers
+// );
 const store = createStore(
-  rootReducer,
-  enhancers
+  rootReducer
 );
 
 render(
